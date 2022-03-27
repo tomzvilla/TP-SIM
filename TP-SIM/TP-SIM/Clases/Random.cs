@@ -8,8 +8,8 @@ namespace TP_SIM.Clases
 {
     public class Randoms
     {
-        public int valorIntermedio { get; set; }
-        public int valorXi { get; set; }
+        public long valorIntermedio { get; set; }
+        public long valorXi { get; set; }
         public double valorRND { get; set; }
     }
 }

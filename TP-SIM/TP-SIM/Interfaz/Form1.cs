@@ -26,9 +26,10 @@ namespace TP_SIM
             var k = (int)nud_k.Value;
             var g = (int)nud_g.Value;
             var c = (int)nud_c.Value;
+            var intervalos = (Intervalos)cmb_intervalos.SelectedItem;
             if (validarParametros(x0, k, g, c, n)){
                 var gen = new Generador(x0, k, g, c, n);
-                var f = new TablaRandoms(gen);
+                var f = new TablaRandoms(gen,intervalos, n);
                 f.Show();
                 gen.generar_random();
             }

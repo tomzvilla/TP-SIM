@@ -34,6 +34,7 @@ namespace TP_SIM.Interfaz
             this.valorIntermedio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.valorXi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.valorRND = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btn_histograma = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_random)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,7 +50,7 @@ namespace TP_SIM.Interfaz
             this.dgv_random.Location = new System.Drawing.Point(12, 12);
             this.dgv_random.Name = "dgv_random";
             this.dgv_random.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_random.Size = new System.Drawing.Size(462, 291);
+            this.dgv_random.Size = new System.Drawing.Size(466, 308);
             this.dgv_random.TabIndex = 0;
             // 
             // iteracion
@@ -72,11 +73,22 @@ namespace TP_SIM.Interfaz
             this.valorRND.HeaderText = "Random";
             this.valorRND.Name = "valorRND";
             // 
+            // btn_histograma
+            // 
+            this.btn_histograma.Location = new System.Drawing.Point(185, 336);
+            this.btn_histograma.Name = "btn_histograma";
+            this.btn_histograma.Size = new System.Drawing.Size(123, 42);
+            this.btn_histograma.TabIndex = 1;
+            this.btn_histograma.Text = "Histograma";
+            this.btn_histograma.UseVisualStyleBackColor = true;
+            this.btn_histograma.Click += new System.EventHandler(this.btn_histograma_Click);
+            // 
             // TablaRandoms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(502, 338);
+            this.ClientSize = new System.Drawing.Size(490, 390);
+            this.Controls.Add(this.btn_histograma);
             this.Controls.Add(this.dgv_random);
             this.Name = "TablaRandoms";
             this.Text = "Randoms";
@@ -93,5 +105,6 @@ namespace TP_SIM.Interfaz
         private System.Windows.Forms.DataGridViewTextBoxColumn valorIntermedio;
         private System.Windows.Forms.DataGridViewTextBoxColumn valorXi;
         private System.Windows.Forms.DataGridViewTextBoxColumn valorRND;
+        private System.Windows.Forms.Button btn_histograma;
     }
 }

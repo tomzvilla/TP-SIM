@@ -15,9 +15,13 @@ namespace TP_SIM.Interfaz
     {
         public Generador gen;
         public List<Randoms> lista_resultados;
-        public TablaRandoms(Generador _gen)
+        public Intervalos intervalos;
+        public int cant_numeros; 
+        public TablaRandoms(Generador _gen, Intervalos _intervalos, int n)
         {
             gen = _gen;
+            intervalos = _intervalos;
+            cant_numeros = n;
             InitializeComponent();
         }
 
@@ -32,19 +36,26 @@ namespace TP_SIM.Interfaz
             int i = 0;
             foreach (var resultado in lista_resultados)
             {
-                
+                string RNDsinNotacion = String.Format("{0:N30}", resultado.valorRND);
+
                 var fila = new string[]
                 {
                     Convert.ToString(i),
                     Convert.ToString(resultado.valorIntermedio),
                     Convert.ToString(resultado.valorXi),
-                    Convert.ToString(resultado.valorRND)
+                    RNDsinNotacion
                 };
                 dgv_random.Rows.Add(fila);
                 i += 1;
 
             }
 
+        }
+
+        private void btn_histograma_Click(object sender, EventArgs e)
+        {
+            var form = new Histograma(lista_resultados, intervalos, cant_numeros);
+            form.Show();
         }
     }
 }

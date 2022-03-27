@@ -9,3 +9,4 @@ C:\Users\villa\source\repos\TP-SIM\TP-SIM\bin\Debug\TP-SIM.pdb
 C:\Users\villa\source\repos\TP-SIM\TP-SIM\obj\Debug\TP-SIM.exe
 C:\Users\villa\source\repos\TP-SIM\TP-SIM\obj\Debug\TP-SIM.pdb
 C:\Users\villa\source\repos\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Interfaz.TablaRandoms.resources
+C:\Users\villa\source\repos\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Interfaz.Histograma.resources

@@ -13,7 +13,7 @@ namespace TP_SIM.Clases
 
         public int seed { get; set; }
         public int a { get; set; }
-        public int m { get; set; }
+        public long m { get; set; }
         public int c { get; set; }
         public int n { get; set; }
 
@@ -28,7 +28,7 @@ namespace TP_SIM.Clases
         public Generador(int _seed, int k, int g, int _c, int _n)
         {
             a = 1 + (4 * k);
-            m = (int)Math.Pow(2,g);
+            m = (long)Math.Pow(2,g);
             c = _c;
             seed = _seed;
             n = _n;
@@ -38,7 +38,7 @@ namespace TP_SIM.Clases
         {
             var lista_resultados = new List<Randoms>(); 
 
-            var x0 = seed;
+            var x0 = (long)seed;
             for(int i = 0; i < n; i++)
             {
                 var tmp = (a * x0 + c);
@@ -46,6 +46,7 @@ namespace TP_SIM.Clases
 
                 x0 = xi;
                 var RND = (double)xi / m;
+
 
                 var datos = new Randoms()
                 {
