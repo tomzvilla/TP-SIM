@@ -38,12 +38,14 @@ namespace TP_SIM.Interfaz
             {
                 string RNDsinNotacion = String.Format("{0:N30}", resultado.valorRND);
 
+
                 var fila = new string[]
                 {
                     Convert.ToString(i),
                     Convert.ToString(resultado.valorIntermedio),
                     Convert.ToString(resultado.valorXi),
-                    RNDsinNotacion
+                    /*RNDsinNotacion.TrimEnd('0')*/
+                    RNDsinNotacion,
                 };
                 dgv_random.Rows.Add(fila);
                 i += 1;

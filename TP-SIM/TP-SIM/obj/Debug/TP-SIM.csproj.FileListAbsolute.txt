@@ -10,3 +10,15 @@ C:\Users\villa\source\repos\TP-SIM\TP-SIM\obj\Debug\TP-SIM.exe
 C:\Users\villa\source\repos\TP-SIM\TP-SIM\obj\Debug\TP-SIM.pdb
 C:\Users\villa\source\repos\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Interfaz.TablaRandoms.resources
 C:\Users\villa\source\repos\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Interfaz.Histograma.resources
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\bin\Debug\TP-SIM.exe.config
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\bin\Debug\TP-SIM.exe
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\bin\Debug\TP-SIM.pdb
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP-SIM.csproj.AssemblyReference.cache
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.tp1_window.resources
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Interfaz.Histograma.resources
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Interfaz.TablaRandoms.resources
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Properties.Resources.resources
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP-SIM.csproj.GenerateResource.cache
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP-SIM.csproj.CoreCompileInputs.cache
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP-SIM.exe
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP-SIM.pdb

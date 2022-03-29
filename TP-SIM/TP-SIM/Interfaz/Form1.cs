@@ -39,11 +39,15 @@ namespace TP_SIM
         private bool validarParametros(int _seed, int k, int g, int _c, int _n)
         {
             int m = (int)Math.Pow(2, g);
-            if (!MCD(m, _c))
+            if (_c != 0)
             {
-                MessageBox.Show("El parámetro M y C deben ser primos relativos. Ingrese nuevos valores", "Alerta", MessageBoxButtons.OK);
-                return false;
+                if (!MCD(m, _c))
+                {
+                    MessageBox.Show("El parámetro M y C deben ser primos relativos. Ingrese nuevos valores", "Alerta", MessageBoxButtons.OK);
+                    return false;
+                }
             }
+
             if (!validarPrimo(_seed))
             {
                 DialogResult var = MessageBox.Show("Se recomienda usar como semilla un numero primo. ¿Desea ingresar un nuevo valor?","Alerta",MessageBoxButtons.YesNo);
