@@ -27,7 +27,10 @@ namespace TP_SIM.Interfaz
 
         private void Randoms_Load(object sender, EventArgs e)
         {
-            lista_resultados = gen.generar_random();
+            if(gen.seed == 0)
+                lista_resultados = gen.generar_random_c();
+            else
+                lista_resultados = gen.generar_random();
             cargarResultados();
         }
 

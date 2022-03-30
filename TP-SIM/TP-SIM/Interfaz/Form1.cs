@@ -27,11 +27,16 @@ namespace TP_SIM
             var g = (int)nud_g.Value;
             var c = (int)nud_c.Value;
             var intervalos = (Intervalos)cmb_intervalos.SelectedItem;
+            var gen_elegido = (Generador)cmb_generador.SelectedItem;
             if (validarParametros(x0, k, g, c, n)){
                 var gen = new Generador(x0, k, g, c, n);
                 var f = new TablaRandoms(gen,intervalos, n);
                 f.Show();
-                gen.generar_random();
+                /*
+                if (gen_elegido.id != 3)
+                    gen.generar_random();
+                else
+                    gen.generar_random_c();*/
             }
 
         }
@@ -39,6 +44,11 @@ namespace TP_SIM
         private bool validarParametros(int _seed, int k, int g, int _c, int _n)
         {
             int m = (int)Math.Pow(2, g);
+            if(_n == 0)
+            {
+                MessageBox.Show("Se deben generar más de 0 números. Ingrese nuevamente", "Alerta", MessageBoxButtons.OK);
+                return false;
+            }
             if (_c != 0)
             {
                 if (!MCD(m, _c))
@@ -146,14 +156,19 @@ namespace TP_SIM
             var lineal = new Generador();
             lineal.id = 1;
             lineal.nombre = "Congruencial Lineal";
+
             var multiplicativo = new Generador();
             multiplicativo.id = 2;
             multiplicativo.nombre = "Congruencial Multiplicativo";
 
+            var generador_c = new Generador();
+            generador_c.id = 3;
+            generador_c.nombre = "Generador de C#";
 
             var dataSource = new List<Generador>();
             dataSource.Add(lineal);
             dataSource.Add(multiplicativo);
+            dataSource.Add(generador_c);
             var conector = new BindingSource();
             conector.DataSource = dataSource;
 
@@ -173,9 +188,24 @@ namespace TP_SIM
                 nud_c.Value = 0;
                 nud_c.ReadOnly = true;
             }
+            else if(gen.id == 3)
+            {
+                nud_c.Value = 0;
+                nud_c.ReadOnly = true;
+                nud_k.Value = 0;
+                nud_k.ReadOnly = true;
+                nud_g.Value = 0;
+                nud_g.ReadOnly = true;
+                seed.Value = 0;
+                seed.ReadOnly = true;
+            }
             else
             {
                 nud_c.ReadOnly = false;
+                nud_g.ReadOnly = false;
+                seed.ReadOnly = false;
+                nud_k.ReadOnly = false;
+
             }
         }
     }

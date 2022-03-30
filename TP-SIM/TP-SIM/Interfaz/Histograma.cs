@@ -29,12 +29,21 @@ namespace TP_SIM.Interfaz
         private void Histograma_Load(object sender, EventArgs e)
         {
             var media = cargarMedia();
-            cargarVarianza(media);
+            var varianza = cargarVarianza(media);
+            cargarDesviacion(varianza);
             cargarFilas();
             cargarDatos();
             cargarTabla();
             cargarHistograma();
             cargarFrecuenciaEsperada();
+        }
+
+        private void cargarDesviacion(double varianza)
+        {
+
+            var ds = Math.Sqrt(varianza);
+            txt_desviacion.Text = ds.ToString("0.00000000");
+            
         }
 
         private void cargarFrecuenciaEsperada()
@@ -108,7 +117,7 @@ namespace TP_SIM.Interfaz
 
         }
 
-        private void cargarVarianza(double media)
+        private double cargarVarianza(double media)
         {
             double suma = 0;
             for (var i = 0; i < lista_resultados.Count; i++)
@@ -119,6 +128,7 @@ namespace TP_SIM.Interfaz
 
             double varianza = (double) suma / lista_resultados.Count;
             txt_varianza.Text = varianza.ToString("0.00000000");
+            return varianza;
         }
 
         private double cargarMedia()
@@ -203,6 +213,12 @@ namespace TP_SIM.Interfaz
         private void lbl_varianza_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btn_chi_cuadrado_Click(object sender, EventArgs e)
+        {
+            var form = new TestChi(lista_datos);
+            form.Show();
         }
     }
 }

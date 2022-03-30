@@ -61,6 +61,26 @@ namespace TP_SIM.Clases
 
 
         }
+
+        public List<Randoms> generar_random_c()
+        {
+            var lista_resultados = new List<Randoms>();
+            var generador = new Random();
+            for (int i = 0; i < n; i++)
+            {
+                var rnd = generador.NextDouble();
+
+                var datos = new Randoms()
+                {
+                    valorIntermedio = 0,
+                    valorXi = 0,
+                    valorRND = rnd,
+                };
+
+                lista_resultados.Add(datos);
+            }
+            return lista_resultados;
+        }
     }
 
     

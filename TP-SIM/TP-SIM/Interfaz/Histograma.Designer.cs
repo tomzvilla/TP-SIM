@@ -29,10 +29,10 @@ namespace TP_SIM.Interfaz
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.dgv_histograma = new System.Windows.Forms.DataGridView();
             this.intervalo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.marcaClase = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -48,6 +48,9 @@ namespace TP_SIM.Interfaz
             this.ch_frecuenciaEsperada = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txt_desviacion = new System.Windows.Forms.TextBox();
+            this.btn_chi_cuadrado = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_histograma)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ch_histograma)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ch_frecuenciaEsperada)).BeginInit();
@@ -102,14 +105,14 @@ namespace TP_SIM.Interfaz
             // 
             // ch_histograma
             // 
-            chartArea1.BorderWidth = 0;
-            chartArea1.Name = "ChartArea1";
-            this.ch_histograma.ChartAreas.Add(chartArea1);
+            chartArea3.BorderWidth = 0;
+            chartArea3.Name = "ChartArea1";
+            this.ch_histograma.ChartAreas.Add(chartArea3);
             this.ch_histograma.Location = new System.Drawing.Point(690, 106);
             this.ch_histograma.Name = "ch_histograma";
-            series1.ChartArea = "ChartArea1";
-            series1.Name = "Randoms";
-            this.ch_histograma.Series.Add(series1);
+            series3.ChartArea = "ChartArea1";
+            series3.Name = "Randoms";
+            this.ch_histograma.Series.Add(series3);
             this.ch_histograma.Size = new System.Drawing.Size(404, 358);
             this.ch_histograma.TabIndex = 1;
             this.ch_histograma.Text = "chart1";
@@ -156,14 +159,14 @@ namespace TP_SIM.Interfaz
             // 
             // ch_frecuenciaEsperada
             // 
-            chartArea2.BorderWidth = 0;
-            chartArea2.Name = "ChartArea1";
-            this.ch_frecuenciaEsperada.ChartAreas.Add(chartArea2);
+            chartArea4.BorderWidth = 0;
+            chartArea4.Name = "ChartArea1";
+            this.ch_frecuenciaEsperada.ChartAreas.Add(chartArea4);
             this.ch_frecuenciaEsperada.Location = new System.Drawing.Point(1123, 106);
             this.ch_frecuenciaEsperada.Name = "ch_frecuenciaEsperada";
-            series2.ChartArea = "ChartArea1";
-            series2.Name = "Randoms";
-            this.ch_frecuenciaEsperada.Series.Add(series2);
+            series4.ChartArea = "ChartArea1";
+            series4.Name = "Randoms";
+            this.ch_frecuenciaEsperada.Series.Add(series4);
             this.ch_frecuenciaEsperada.Size = new System.Drawing.Size(404, 358);
             this.ch_frecuenciaEsperada.TabIndex = 6;
             this.ch_frecuenciaEsperada.Text = "ch_frecuenciaEsperada";
@@ -188,11 +191,44 @@ namespace TP_SIM.Interfaz
             this.label2.TabIndex = 8;
             this.label2.Text = "Frecuencias Observadas";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(12, 558);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(210, 25);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Desviación Estandar";
+            // 
+            // txt_desviacion
+            // 
+            this.txt_desviacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_desviacion.Location = new System.Drawing.Point(239, 558);
+            this.txt_desviacion.Name = "txt_desviacion";
+            this.txt_desviacion.ReadOnly = true;
+            this.txt_desviacion.Size = new System.Drawing.Size(215, 31);
+            this.txt_desviacion.TabIndex = 10;
+            // 
+            // btn_chi_cuadrado
+            // 
+            this.btn_chi_cuadrado.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_chi_cuadrado.Location = new System.Drawing.Point(822, 506);
+            this.btn_chi_cuadrado.Name = "btn_chi_cuadrado";
+            this.btn_chi_cuadrado.Size = new System.Drawing.Size(160, 77);
+            this.btn_chi_cuadrado.TabIndex = 11;
+            this.btn_chi_cuadrado.Text = "Test de Chi Cuadrado";
+            this.btn_chi_cuadrado.UseVisualStyleBackColor = true;
+            this.btn_chi_cuadrado.Click += new System.EventHandler(this.btn_chi_cuadrado_Click);
+            // 
             // Histograma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1558, 605);
+            this.Controls.Add(this.btn_chi_cuadrado);
+            this.Controls.Add(this.txt_desviacion);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ch_frecuenciaEsperada);
@@ -230,5 +266,8 @@ namespace TP_SIM.Interfaz
         private System.Windows.Forms.DataVisualization.Charting.Chart ch_frecuenciaEsperada;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txt_desviacion;
+        private System.Windows.Forms.Button btn_chi_cuadrado;
     }
 }

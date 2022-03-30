@@ -22,3 +22,4 @@ C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP-SIM.csproj
 C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP-SIM.csproj.CoreCompileInputs.cache
 C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP-SIM.exe
 C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP-SIM.pdb
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Interfaz.TestChi.resources
