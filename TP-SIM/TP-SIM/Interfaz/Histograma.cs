@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using TP_SIM.Clases;
@@ -18,6 +13,7 @@ namespace TP_SIM.Interfaz
         public Intervalos intervalos;
         public int cant_numeros;
         public List<DatoHistograma> lista_datos;
+
         public Histograma(List<Randoms> _lista_resultados, Intervalos _intervalos, int n)
         {
             lista_resultados = _lista_resultados;
@@ -25,6 +21,8 @@ namespace TP_SIM.Interfaz
             cant_numeros = n;
             InitializeComponent();
         }
+
+
 
         private void Histograma_Load(object sender, EventArgs e)
         {
@@ -43,7 +41,7 @@ namespace TP_SIM.Interfaz
 
             var ds = Math.Sqrt(varianza);
             txt_desviacion.Text = ds.ToString("0.00000000");
-            
+
         }
 
         private void cargarFrecuenciaEsperada()
@@ -92,11 +90,11 @@ namespace TP_SIM.Interfaz
                 MarkerStyle = MarkerStyle.None,
                 BorderWidth = 1,
                 BorderColor = Color.Black,
-                
+
 
             };
 
-            
+
             Axis ax = ch_histograma.ChartAreas[0].AxisX;
             ax.Interval = Math.Round((double)1 / intervalos.intervalo, 4);
             ax.IntervalOffset = 0;
@@ -126,7 +124,7 @@ namespace TP_SIM.Interfaz
 
             }
 
-            double varianza = (double) suma / lista_resultados.Count;
+            double varianza = (double)suma / lista_resultados.Count;
             txt_varianza.Text = varianza.ToString("0.00000000");
             return varianza;
         }
@@ -134,12 +132,12 @@ namespace TP_SIM.Interfaz
         private double cargarMedia()
         {
             double acum = 0;
-            for(var i = 0; i < lista_resultados.Count; i++)
+            for (var i = 0; i < lista_resultados.Count; i++)
             {
                 acum += lista_resultados[i].valorRND;
             }
 
-            var media = (double )acum / lista_resultados.Count;
+            var media = (double)acum / lista_resultados.Count;
             txt_media.Text = media.ToString("0.00000000");
             return media;
         }
@@ -150,8 +148,8 @@ namespace TP_SIM.Interfaz
             double fa = 0;
             foreach (var dato in lista_datos)
             {
-                double mc = Math.Round((dato.inicioIntervalo + dato.finIntervalo) / 2,4);
-                double fr = Math.Round((double)dato.fo / cant_numeros,4);
+                double mc = Math.Round((dato.inicioIntervalo + dato.finIntervalo) / 2, 4);
+                double fr = Math.Round((double)dato.fo / cant_numeros, 4);
                 fa += fr;
                 var fila = new string[]
                 {
@@ -170,12 +168,12 @@ namespace TP_SIM.Interfaz
         private void cargarDatos()
         {
             int acum = 0;
-            
-            for(int i= 0; i < lista_datos.Count-1; i++)
+
+            for (int i = 0; i < lista_datos.Count - 1; i++)
             {
-                for(int j = 0; j < lista_resultados.Count; j++)
+                for (int j = 0; j < lista_resultados.Count; j++)
                 {
-                    if(lista_resultados[j].valorRND < lista_datos[i].finIntervalo)
+                    if (lista_resultados[j].valorRND < lista_datos[i].finIntervalo)
                     {
                         acum += 1;
                         lista_resultados.RemoveAt(j);
@@ -185,23 +183,24 @@ namespace TP_SIM.Interfaz
                 lista_datos[i].fo = acum;
                 acum = 0;
             }
-            lista_datos[lista_datos.Count-1].fo = lista_resultados.Count;
+            lista_datos[lista_datos.Count - 1].fo = lista_resultados.Count;
         }
 
         private void cargarFilas()
         {
             var lista_d = new List<DatoHistograma>();
-            for (int i = 0; i < intervalos.intervalo; i++) {
+            for (int i = 0; i < intervalos.intervalo; i++)
+            {
                 var ob1 = new DatoHistograma
                 {
                     inicioIntervalo = (double)i / intervalos.intervalo,
                     finIntervalo = (double)(i + 1) / intervalos.intervalo,
                     fe = Math.Round((double)cant_numeros / intervalos.intervalo, 4),
-            };
+                };
 
 
                 lista_d.Add(ob1);
-            } ;
+            };
             lista_datos = lista_d;
         }
 

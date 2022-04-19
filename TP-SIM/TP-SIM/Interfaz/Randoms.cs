@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TP_SIM.Clases;
 
@@ -16,7 +10,7 @@ namespace TP_SIM.Interfaz
         public Generador gen;
         public List<Randoms> lista_resultados;
         public Intervalos intervalos;
-        public int cant_numeros; 
+        public int cant_numeros;
         public TablaRandoms(Generador _gen, Intervalos _intervalos, int n)
         {
             gen = _gen;
@@ -27,7 +21,7 @@ namespace TP_SIM.Interfaz
 
         private void Randoms_Load(object sender, EventArgs e)
         {
-            if(gen.seed == 0)
+            if (gen.seed == 0)
                 lista_resultados = gen.generar_random_c();
             else
                 lista_resultados = gen.generar_random();
@@ -61,6 +55,11 @@ namespace TP_SIM.Interfaz
         {
             var form = new Histograma(lista_resultados, intervalos, cant_numeros);
             form.Show();
+        }
+
+        private void dgv_random_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

@@ -12,6 +12,23 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>C:\Users\villa\Desktop\cursodw-36035\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,6 +49,21 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>8A0DCDE580F15901AEE16810EE59A9DD8A4E0789</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>TP-SIM_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>TP_SIM.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,6 +81,7 @@
   <ItemGroup>
     <Compile Include="Clases\DatoHistograma.cs" />
     <Compile Include="Clases\DatosChi.cs" />
+    <Compile Include="Clases\Distribuciones\GeneradorDistribuciones.cs" />
     <Compile Include="Clases\Generadores.cs" />
     <Compile Include="Clases\Intervalos.cs" />
     <Compile Include="Clases\Random.cs" />
@@ -58,11 +91,23 @@
     <Compile Include="Interfaz\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaz\HistogramaDistribucion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interfaz\HistogramaDistribucion.Designer.cs">
+      <DependentUpon>HistogramaDistribucion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interfaz\Histograma.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Interfaz\Histograma.Designer.cs">
       <DependentUpon>Histograma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaz\menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interfaz\menu.Designer.cs">
+      <DependentUpon>menu.cs</DependentUpon>
     </Compile>
     <Compile Include="Interfaz\Randoms.cs">
       <SubType>Form</SubType>
@@ -70,25 +115,58 @@
     <Compile Include="Interfaz\Randoms.Designer.cs">
       <DependentUpon>Randoms.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaz\TablaRNDistribucion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interfaz\TablaRNDistribucion.Designer.cs">
+      <DependentUpon>TablaRNDistribucion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interfaz\TestChi.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Interfaz\TestChi.Designer.cs">
       <DependentUpon>TestChi.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaz\TestKS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interfaz\TestKS.Designer.cs">
+      <DependentUpon>TestKS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaz\tp3_window.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interfaz\tp3_window.Designer.cs">
+      <DependentUpon>tp3_window.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Interfaz\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Interfaz\HistogramaDistribucion.resx">
+      <DependentUpon>HistogramaDistribucion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Interfaz\Histograma.resx">
       <DependentUpon>Histograma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interfaz\menu.resx">
+      <DependentUpon>menu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Interfaz\Randoms.resx">
       <DependentUpon>Randoms.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Interfaz\TablaRNDistribucion.resx">
+      <DependentUpon>TablaRNDistribucion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Interfaz\TestChi.resx">
       <DependentUpon>TestChi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interfaz\TestKS.resx">
+      <DependentUpon>TestKS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interfaz\tp3_window.resx">
+      <DependentUpon>tp3_window.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -108,9 +186,22 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="TP-SIM_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 y x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

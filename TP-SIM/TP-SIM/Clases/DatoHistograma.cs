@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TP_SIM.Clases
+﻿namespace TP_SIM.Clases
 {
     public class DatoHistograma
     {
@@ -13,6 +7,8 @@ namespace TP_SIM.Clases
         public double fe { get; set; }
         public int fo { get; set; }
         public float fr { get; set; }
-        public float fa {get; set;}
+        public float fa { get; set; }
+
+
     }
 }

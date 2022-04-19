@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using TP_SIM.Interfaz;
 
 namespace TP_SIM
 {
@@ -16,7 +14,7 @@ namespace TP_SIM
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new tp1_window());
+            Application.Run(new menu());
         }
     }
 }

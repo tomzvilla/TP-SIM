@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TP_SIM.Clases;
+using TP_SIM.Clases.Distribuciones;
 
 namespace TP_SIM.Interfaz
 {
@@ -15,27 +10,59 @@ namespace TP_SIM.Interfaz
     {
         public List<DatoHistograma> lista_datos { get; set; }
         public List<DatosChi> lista_chi_cuadrado { get; set; }
+        public GeneradorDistribuciones gen { get; set; }
+        public int grados { get; set; }
         public TestChi(List<DatoHistograma> _lista_datos)
         {
             lista_datos = _lista_datos;
             InitializeComponent();
         }
 
+        public TestChi(List<DatoHistograma> _lista_datos, GeneradorDistribuciones _gen)
+        {
+            lista_datos = _lista_datos;
+            gen = _gen;
+            InitializeComponent();
+        }
+
         private void TestChi_Load(object sender, EventArgs e)
         {
             cargarTestChi();
-            if (validarGrados())
+            grados = calcularGradosLibertad(gen);
+            if (validarGrados(grados))
             {
                 cargarTablaChi();
 
             }
-        
-            
+
+
         }
 
-        private bool validarGrados()
+        private int calcularGradosLibertad(GeneradorDistribuciones gen)
         {
-            if (lista_chi_cuadrado.Count < 2)
+            var k = lista_chi_cuadrado.Count;
+            int m = 0;
+            switch (gen.tipo)
+            {
+                case "Normal":
+                    m = 2;
+                    break;
+                case "Uniforme":
+                    m = 0;
+                    break;
+                default:
+                    m = 1;
+                    break;
+            }
+
+            var v = k - m - 1;
+            return v;
+
+        }
+
+        private bool validarGrados(int grados)
+        {
+            if (grados < 2)
             {
                 MessageBox.Show("El tamaño de la muestra es demasiado pequeño como para realizar " +
                     "la prueba de chi cuadrado, (v < 2)", "Alerta", MessageBoxButtons.OK);
@@ -46,7 +73,7 @@ namespace TP_SIM.Interfaz
 
         private void comprobarHipotesis()
         {
-            var chi_tabulado = new List<Double>() 
+            var chi_tabulado = new List<Double>()
             {
                 3.8415,
                 5.9915,
@@ -58,14 +85,56 @@ namespace TP_SIM.Interfaz
                 15.5073,
                 16.9190,
                 18.3070,
-                19.6752
+                19.6752,
+                21.0261,
+                22.3620,
+                23.6848,
+                24.9958,
+                26.2962,
+                27.5871,
+                28.8693,
+                30.1435,
+                31.4104,
+                32.6706,
+                33.9245,
+                35.1725,
+                36.4150,
+                37.6525,
+                38.8851,
+                40.1133,
+                41.3378,
+                42.5569,
+                43.78
             };
             double chiAcumulado = Convert.ToDouble(dgv_chi_cuadrado.Rows[dgv_chi_cuadrado.RowCount - 1].Cells[4].Value);
 
-            var grados = lista_chi_cuadrado.Count - 1;
-            txt_chi_ac.Text = chi_tabulado[grados - 1].ToString();
+            double chiTabulado = 0;
+            if(grados <= 30)
+                chiTabulado = chi_tabulado[grados - 1];
+            else if (grados > 30 && grados <= 35)
+            {
+                chiTabulado = 49.81;
+            }
+            else if (grados > 35 && grados <= 40)
+                chiTabulado = 55.75;
+            else if (grados > 40 && grados <= 45)
+                chiTabulado = 61.65;
+            else if (grados > 45 && grados <= 50)
+                chiTabulado = 67.5;
+            else if (grados > 50 && grados <= 60)
+                chiTabulado = 79.08;
+            else if (grados > 60 && grados <= 70)
+                chiTabulado = 90.53;
+            else if (grados > 70 && grados <= 80)
+                chiTabulado = 101.88;
+            else if (grados > 80 && grados <= 90)
+                chiTabulado = 113.14;
+            else
+                chiTabulado = 124.34;
 
-            if(chiAcumulado <= chi_tabulado[grados - 1])
+            txt_chi_ac.Text = chiTabulado.ToString();
+
+            if (chiAcumulado <= chiTabulado)
             {
                 MessageBox.Show("La hipotesis no se rechaza", "Información", MessageBoxButtons.OKCancel);
             }
@@ -89,7 +158,7 @@ namespace TP_SIM.Interfaz
                 {
                     dato.inicioIntervalo.ToString("0.0000") + " - " + dato.finIntervalo.ToString("0.0000"),
                     Convert.ToString(dato.fe),
-                    Convert.ToString(dato.fo), 
+                    Convert.ToString(dato.fo),
                     chi.ToString("0.0000"),
                     chiAcumulada.ToString("0.0000")
 
@@ -109,7 +178,7 @@ namespace TP_SIM.Interfaz
 
             for (var i = 0; i < lista_datos.Count; i++)
             {
-                if (lista_datos[i].fe >= 5)
+                if (lista_datos[i].fe >= 5 && first == true)
                 {
                     var obj = new DatosChi()
                     {

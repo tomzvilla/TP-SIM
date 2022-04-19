@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TP_SIM.Clases
 {
@@ -28,7 +25,7 @@ namespace TP_SIM.Clases
         public Generador(int _seed, int k, int g, int _c, int _n)
         {
             a = 1 + (4 * k);
-            m = (long)Math.Pow(2,g);
+            m = (long)Math.Pow(2, g);
             c = _c;
             seed = _seed;
             n = _n;
@@ -36,13 +33,13 @@ namespace TP_SIM.Clases
 
         public List<Randoms> generar_random()
         {
-            var lista_resultados = new List<Randoms>(); 
+            var lista_resultados = new List<Randoms>();
 
             var x0 = (long)seed;
-            for(int i = 0; i < n; i++)
+            for (int i = 0; i < n; i++)
             {
                 var tmp = (a * x0 + c);
-                var xi = tmp % m; 
+                var xi = tmp % m;
 
                 x0 = xi;
                 var RND = (double)xi / m;
@@ -83,5 +80,5 @@ namespace TP_SIM.Clases
         }
     }
 
-    
+
 }

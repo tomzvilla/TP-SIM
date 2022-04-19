@@ -52,6 +52,7 @@ namespace TP_SIM.Interfaz
             this.dgv_random.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_random.Size = new System.Drawing.Size(466, 308);
             this.dgv_random.TabIndex = 0;
+            this.dgv_random.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_random_CellContentClick);
             // 
             // iteracion
             // 

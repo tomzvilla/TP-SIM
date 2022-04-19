@@ -23,3 +23,12 @@ C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP-SIM.csproj
 C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP-SIM.exe
 C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP-SIM.pdb
 C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Interfaz.TestChi.resources
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\bin\Debug\TP-SIM.exe.manifest
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\bin\Debug\TP-SIM.application
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP-SIM.exe.manifest
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP-SIM.application
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Interfaz.menu.resources
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Interfaz.tp3_window.resources
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Interfaz.TablaRNDistribucion.resources
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Interfaz.HistogramaDistribucion.resources
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Interfaz.TestKS.resources

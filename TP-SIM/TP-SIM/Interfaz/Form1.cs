@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TP_SIM.Clases;
 using TP_SIM.Interfaz;
@@ -28,9 +22,10 @@ namespace TP_SIM
             var c = (int)nud_c.Value;
             var intervalos = (Intervalos)cmb_intervalos.SelectedItem;
             var gen_elegido = (Generador)cmb_generador.SelectedItem;
-            if (validarParametros(x0, k, g, c, n)){
+            if (validarParametros(x0, k, g, c, n))
+            {
                 var gen = new Generador(x0, k, g, c, n);
-                var f = new TablaRandoms(gen,intervalos, n);
+                var f = new TablaRandoms(gen, intervalos, n);
                 f.Show();
                 /*
                 if (gen_elegido.id != 3)
@@ -44,7 +39,7 @@ namespace TP_SIM
         private bool validarParametros(int _seed, int k, int g, int _c, int _n)
         {
             int m = (int)Math.Pow(2, g);
-            if(_n == 0)
+            if (_n == 0)
             {
                 MessageBox.Show("Se deben generar más de 0 números. Ingrese nuevamente", "Alerta", MessageBoxButtons.OK);
                 return false;
@@ -60,7 +55,7 @@ namespace TP_SIM
 
             if (!validarPrimo(_seed))
             {
-                DialogResult var = MessageBox.Show("Se recomienda usar como semilla un numero primo. ¿Desea ingresar un nuevo valor?","Alerta",MessageBoxButtons.YesNo);
+                DialogResult var = MessageBox.Show("Se recomienda usar como semilla un numero primo. ¿Desea ingresar un nuevo valor?", "Alerta", MessageBoxButtons.YesNo);
                 if (var == DialogResult.Yes)
                     return false;
             }
@@ -93,11 +88,11 @@ namespace TP_SIM
                 return true;
             if (seed % 2 == 0)
                 return false;
-            var limite = (int) Math.Floor(Math.Sqrt(seed));
+            var limite = (int)Math.Floor(Math.Sqrt(seed));
 
-            for(int i = 3; i <= limite; i += 2)
+            for (int i = 3; i <= limite; i += 2)
             {
-                if(seed % i == 0)
+                if (seed % i == 0)
                 {
                     return false;
                 }
@@ -183,12 +178,12 @@ namespace TP_SIM
         private void cmb_generador_SelectedValueChanged(object sender, EventArgs e)
         {
             Generador gen = (Generador)cmb_generador.SelectedItem;
-            if(gen.id == 2)
+            if (gen.id == 2)
             {
                 nud_c.Value = 0;
                 nud_c.ReadOnly = true;
             }
-            else if(gen.id == 3)
+            else if (gen.id == 3)
             {
                 nud_c.Value = 0;
                 nud_c.ReadOnly = true;
