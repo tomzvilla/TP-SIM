@@ -34,6 +34,10 @@ namespace TP_SIM.Interfaz
                 cargarTablaChi();
 
             }
+            else
+            {
+                this.Dispose();
+            }
 
 
         }
@@ -44,7 +48,10 @@ namespace TP_SIM.Interfaz
             int m = 0;
             switch (gen.tipo)
             {
-                case "Normal":
+                case "Normal BM":
+                    m = 2;
+                    break;
+                case "Normal Convolucional":
                     m = 2;
                     break;
                 case "Uniforme":

@@ -37,7 +37,7 @@ namespace TP_SIM.Interfaz
         {
             var lista = new List<String>()
             {
-                "Uniforme", "Normal", "Exponencial", "Poisson"
+                "Uniforme", "Normal BM","Normal Convolucional", "Exponencial", "Poisson"
             };
 
             var conector = new BindingSource();
@@ -68,6 +68,7 @@ namespace TP_SIM.Interfaz
                 var valorRND = genSeleccionado.generarRND(generador);
                 listaRND.Add(valorRND);
             }
+            genSeleccionado.flag = false;
 
             var form = new TablaRNDistribucion(listaRND, genSeleccionado);
             form.ShowDialog();
@@ -104,7 +105,7 @@ namespace TP_SIM.Interfaz
                 param_m.Enabled = false;
                 param_d.Enabled = false;
             }
-            else if (cmb_distribucion.SelectedItem == "Normal")
+            else if (cmb_distribucion.SelectedItem == "Normal BM" || cmb_distribucion.SelectedItem == "Normal Convolucional")
             {
                 param_a.Enabled = false;
                 param_b.Enabled = false;

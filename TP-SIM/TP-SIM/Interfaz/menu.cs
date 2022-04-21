@@ -19,7 +19,10 @@ namespace TP_SIM.Interfaz
         private void btn_2_Click(object sender, EventArgs e)
         {
             var form = new tp3_window();
-            form.ShowDialog();
+            this.Hide();
+            form.Show();
+        
+
         }
 
         private void menu_Load(object sender, EventArgs e)

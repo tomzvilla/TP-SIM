@@ -279,22 +279,23 @@ namespace TP_SIM.Interfaz
                 case "Uniforme":
                     var valor1 = (double)gen.numero/gen.intervalos;
                     return valor1;
-                case "Normal":
-                    var intervalo = finIntervalo - inicioIntervalo;
-                    var mc = (double)(finIntervalo + inicioIntervalo) / 2;
-
-                    var valor2 = (double)intervalo*((1 / (gen.d * (Math.Sqrt(2 * Math.PI)))) * Math.Exp(-0.5 * Math.Pow(((mc - gen.m) / gen.d), 2)));
-                    return valor2*gen.numero;
+                case "Poisson":
+                    // FIN INTERVALO = INICIO INTERVALO == VALOR PORQUE ES POISSON
+                    var valor = finIntervalo;
+                    var factorial = factorialOf(valor);
+                    var valor4 = (double)(Math.Pow(gen.m, finIntervalo) * Math.Exp(-gen.m)) / factorial;
+                    return valor4 * gen.numero;
                 case "Exponencial":
                     var lambda = (double)1 / gen.m;
                     var valor3 = (double)(1 - Math.Exp(-lambda * finIntervalo)) - (1 - Math.Exp(-lambda * inicioIntervalo));
                     return valor3 * gen.numero;
                 default:
-                    // FIN INTERVALO = INICIO INTERVALO == VALOR PORQUE ES POISSON
-                    var valor = finIntervalo;
-                    var factorial = factorialOf(valor);
-                    var valor4 = (double)(Math.Pow(gen.m, finIntervalo) * Math.Exp(-gen.m)) / factorial;
-                    return valor4*gen.numero;
+                    var intervalo = finIntervalo - inicioIntervalo;
+                    var mc = (double)(finIntervalo + inicioIntervalo) / 2;
+
+                    var valor2 = (double)intervalo * ((1 / (gen.d * (Math.Sqrt(2 * Math.PI)))) * Math.Exp(-0.5 * Math.Pow(((mc - gen.m) / gen.d), 2)));
+                    return valor2 * gen.numero;
+
             }
         }
 

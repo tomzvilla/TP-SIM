@@ -48,6 +48,7 @@ namespace TP_SIM.Interfaz
         private void btn_histograma_Click(object sender, EventArgs e)
         {
             var form = new HistogramaDistribucion(listaRND, gen);
+            this.Hide();
             form.ShowDialog();
         }
     }

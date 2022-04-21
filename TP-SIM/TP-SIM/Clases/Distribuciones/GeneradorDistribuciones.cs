@@ -39,9 +39,12 @@ namespace TP_SIM.Clases.Distribuciones
                 case "Uniforme":
                     var valor = generarRNDUniforme(generador);
                     return valor;
-                case "Normal":
+                case "Normal Convolucional":
                     var valor1 = generarRNDNormal(generador);
                     return valor1;
+                case "Normal BM":
+                    var valor4 = generarRNDNormalBM(generador);
+                    return valor4;
                 case "Exponencial":
                     var valor2 = generarRNDExponencial(generador);
                     return valor2;
