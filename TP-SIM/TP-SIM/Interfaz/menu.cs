@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using TP_SIM.TP4;
 
 namespace TP_SIM.Interfaz
 {
@@ -28,6 +29,13 @@ namespace TP_SIM.Interfaz
         private void menu_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btn_tp4_Click(object sender, EventArgs e)
+        {
+            var form = new tp4_window();
+            this.Hide();
+            form.Show();
         }
     }
 }
