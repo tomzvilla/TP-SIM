@@ -95,6 +95,9 @@ namespace TP_SIM.TP4
             var generador = new Random();
             var rnd_inicial1 = Convert.ToDouble(generador.NextDouble().ToString("0.00"));
             var rnd_inicial2 = Convert.ToDouble(generador.NextDouble().ToString("0.00"));
+
+            var lista_filas = new List<VectorEstado>();
+
             var fila_anterior = new VectorEstado()
             {
                 reloj = 1,
@@ -109,12 +112,12 @@ namespace TP_SIM.TP4
                 costo_descarga = 0,
                 costo_por_noche = obtenerLlegada(rnd_inicial1) * costo_noche,
                 costo_muelle_libre = obtenerLlegada(rnd_inicial1) == 0 ? costo_muelle : 0,
-                costo_total = obtenerLlegada(rnd_inicial1) * costo_noche + obtenerLlegada(rnd_inicial1) == 0 ? costo_muelle : 0,
-                costo_total_ac = obtenerLlegada(rnd_inicial1) * costo_noche + obtenerLlegada(rnd_inicial1) == 0 ? costo_muelle : 0,
                 cant_promedio_barcos_semana = 0,
                 porcentaje_dias_vacios = 0,
                 porcentaje_ocupacion = 0
             };
+            fila_anterior.costo_total = fila_anterior.costo_descarga + fila_anterior.costo_por_noche +fila_anterior.costo_muelle_libre;
+            fila_anterior.costo_total_ac = fila_anterior.costo_total;
       
             for (int i=1; i < num_iteraciones; i++)
             {
@@ -126,24 +129,46 @@ namespace TP_SIM.TP4
                 fila_actual.llegada_barcos = obtenerLlegada(rnd1);
                 fila_actual.RND2 = rnd2;
                 fila_actual.barcos_descargados = obtenerDescarga(rnd2);
-                var calculo1 = fila_anterior.barcos_sin_descargar - fila_actual.barcos_descargados + fila_actual.llegada_barcos;
-                fila_actual.barcos_sin_descargar = calculo1 < 0 ? 0 : calculo1;
+
+                var calculo1 = fila_anterior.barcos_sin_descargar - fila_actual.barcos_descargados;
+                fila_actual.barcos_sin_descargar = calculo1 > 0 ? calculo1 + fila_actual.llegada_barcos : fila_actual.llegada_barcos;
+
                 fila_actual.barcos_total = fila_anterior.barcos_total + fila_actual.llegada_barcos;
-                fila_actual.dias_muelle_vacio += fila_actual.barcos_sin_descargar == 0 ? 1 : 0;
-                var calculo2 = fila_anterior.llegada_barcos - fila_actual.barcos_descargados;
+
+                var calculoVacio = fila_actual.barcos_sin_descargar == 0 ? 1 : 0;
+
+                fila_actual.dias_muelle_vacio = fila_anterior.dias_muelle_vacio + calculoVacio;
+
+                var calculo2 = fila_anterior.llegada_barcos - fila_actual.barcos_descargados + fila_anterior.contador_barcos_retrasados;
                 fila_actual.contador_barcos_retrasados += (calculo2) <0 ? 0 : calculo2;
-                fila_actual.costo_descarga = fila_actual.barcos_descargados * generarRNDNormalBM(generador);
+
+                fila_actual.acumulador_barcos_retrasados = fila_anterior.acumulador_barcos_retrasados + fila_actual.contador_barcos_retrasados;
+
+                fila_actual.costo_descarga = calculo1 > 0 ? calculo1 * generarRNDNormalBM(generador) : fila_anterior.barcos_sin_descargar * generarRNDNormalBM(generador);
                 fila_actual.costo_por_noche = fila_actual.barcos_sin_descargar * costo_noche;
                 fila_actual.costo_muelle_libre = fila_actual.barcos_sin_descargar == 0 ? costo_muelle : 0;
                 fila_actual.costo_total = fila_actual.costo_descarga + fila_actual.costo_por_noche + fila_actual.costo_muelle_libre;
-                fila_actual.costo_total_ac += fila_actual.costo_total;
-                fila_actual.cant_promedio_barcos_semana = (fila_actual.reloj % 7 == 1) ? fila_actual.barcos_total / fila_actual.reloj / 7 : 0;
+                fila_actual.costo_total_ac = fila_anterior.costo_total_ac + fila_actual.costo_total;
+                fila_actual.costo_promedio_diario = (double)fila_actual.costo_total_ac / fila_actual.reloj;
+                fila_actual.cant_promedio_barcos_semana = (fila_actual.reloj % 7 == 1) ? (double)fila_actual.barcos_total / (fila_actual.reloj / 7) : fila_anterior.cant_promedio_barcos_semana;
                 fila_actual.porcentaje_dias_vacios = ((double)fila_actual.dias_muelle_vacio / fila_actual.reloj)*100;
                 fila_actual.porcentaje_ocupacion = ((double)fila_actual.barcos_descargados / 5)*100;
 
+                if(fila_actual.reloj >= fila_desde && fila_actual.reloj <= fila_desde+400 )
+                    lista_filas.Add(fila_actual);
+                if (i == num_iteraciones - 1)
+                    lista_filas.Add(fila_actual);
                 fila_anterior = fila_actual;
             }
             flag = false;
+
+            cargarFilas(lista_filas);
+        }
+
+        private void cargarFilas(List<VectorEstado> lista_filas)
+        {
+            var form = new TablaMontecharli(lista_filas);
+            form.Show();
         }
 
         private int obtenerLlegada(double rnd1)
