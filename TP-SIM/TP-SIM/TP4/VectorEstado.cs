@@ -16,8 +16,8 @@ namespace TP_SIM.TP4
         public int barcos_sin_descargar;
         public int barcos_total;
         public int dias_muelle_vacio;
-        public int contador_barcos_retrasados;
-        public int acumulador_barcos_retrasados;
+        public long contador_barcos_retrasados;
+        public long acumulador_barcos_retrasados;
         public double porcentaje_ocupacion;
         public double costo_descarga;
         public double costo_por_noche;

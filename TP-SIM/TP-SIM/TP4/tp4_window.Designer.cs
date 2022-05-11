@@ -77,6 +77,20 @@ namespace TP_SIM.TP4
             this.label22 = new System.Windows.Forms.Label();
             this.btn_sumar = new System.Windows.Forms.Button();
             this.boton_suma = new System.Windows.Forms.Panel();
+            this.label21 = new System.Windows.Forms.Label();
+            this.cmb_eleccion = new System.Windows.Forms.ComboBox();
+            this.panel_uniforme = new System.Windows.Forms.Panel();
+            this.num_a = new System.Windows.Forms.NumericUpDown();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.num_b = new System.Windows.Forms.NumericUpDown();
+            this.panel_poisson = new System.Windows.Forms.Panel();
+            this.label27 = new System.Windows.Forms.Label();
+            this.num_p = new System.Windows.Forms.NumericUpDown();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.num_iteracion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_media)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_desv)).BeginInit();
@@ -98,6 +112,11 @@ namespace TP_SIM.TP4
             ((System.ComponentModel.ISupportInitialize)(this.pd_2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pd_1)).BeginInit();
             this.boton_suma.SuspendLayout();
+            this.panel_uniforme.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_a)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_b)).BeginInit();
+            this.panel_poisson.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_p)).BeginInit();
             this.SuspendLayout();
             // 
             // num_iteracion
@@ -137,7 +156,7 @@ namespace TP_SIM.TP4
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(27, 93);
+            this.label2.Location = new System.Drawing.Point(27, 140);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(166, 25);
             this.label2.TabIndex = 2;
@@ -147,7 +166,7 @@ namespace TP_SIM.TP4
             // 
             this.num_media.DecimalPlaces = 2;
             this.num_media.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.num_media.Location = new System.Drawing.Point(369, 91);
+            this.num_media.Location = new System.Drawing.Point(369, 138);
             this.num_media.Maximum = new decimal(new int[] {
             1863558633,
             10513,
@@ -171,7 +190,7 @@ namespace TP_SIM.TP4
             // 
             this.num_desv.DecimalPlaces = 2;
             this.num_desv.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.num_desv.Location = new System.Drawing.Point(369, 146);
+            this.num_desv.Location = new System.Drawing.Point(369, 193);
             this.num_desv.Maximum = new decimal(new int[] {
             1863558633,
             10513,
@@ -195,7 +214,7 @@ namespace TP_SIM.TP4
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(254, 93);
+            this.label3.Location = new System.Drawing.Point(254, 140);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(97, 25);
             this.label3.TabIndex = 5;
@@ -205,7 +224,7 @@ namespace TP_SIM.TP4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(226, 148);
+            this.label4.Location = new System.Drawing.Point(226, 195);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(125, 25);
             this.label4.TabIndex = 6;
@@ -215,7 +234,7 @@ namespace TP_SIM.TP4
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(27, 216);
+            this.label5.Location = new System.Drawing.Point(48, 263);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(205, 25);
             this.label5.TabIndex = 7;
@@ -225,7 +244,7 @@ namespace TP_SIM.TP4
             // 
             this.num_noche.DecimalPlaces = 2;
             this.num_noche.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.num_noche.Location = new System.Drawing.Point(369, 210);
+            this.num_noche.Location = new System.Drawing.Point(369, 257);
             this.num_noche.Maximum = new decimal(new int[] {
             1863558633,
             10513,
@@ -249,7 +268,7 @@ namespace TP_SIM.TP4
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(27, 270);
+            this.label6.Location = new System.Drawing.Point(27, 317);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(230, 25);
             this.label6.TabIndex = 9;
@@ -259,7 +278,7 @@ namespace TP_SIM.TP4
             // 
             this.num_muelle.DecimalPlaces = 2;
             this.num_muelle.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.num_muelle.Location = new System.Drawing.Point(369, 264);
+            this.num_muelle.Location = new System.Drawing.Point(369, 311);
             this.num_muelle.Maximum = new decimal(new int[] {
             1863558633,
             10513,
@@ -281,6 +300,8 @@ namespace TP_SIM.TP4
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.cmb_eleccion);
+            this.panel1.Controls.Add(this.label21);
             this.panel1.Controls.Add(this.num_fila_desde);
             this.panel1.Controls.Add(this.label23);
             this.panel1.Controls.Add(this.btn_cambiar_prob);
@@ -304,7 +325,7 @@ namespace TP_SIM.TP4
             // num_fila_desde
             // 
             this.num_fila_desde.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.num_fila_desde.Location = new System.Drawing.Point(369, 324);
+            this.num_fila_desde.Location = new System.Drawing.Point(369, 371);
             this.num_fila_desde.Maximum = new decimal(new int[] {
             1863558633,
             10513,
@@ -328,7 +349,7 @@ namespace TP_SIM.TP4
             // 
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(143, 324);
+            this.label23.Location = new System.Drawing.Point(143, 371);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(110, 25);
             this.label23.TabIndex = 15;
@@ -854,13 +875,191 @@ namespace TP_SIM.TP4
             this.boton_suma.TabIndex = 15;
             this.boton_suma.Visible = false;
             // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(143, 80);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(85, 25);
+            this.label21.TabIndex = 17;
+            this.label21.Text = "Version";
+            // 
+            // cmb_eleccion
+            // 
+            this.cmb_eleccion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_eleccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmb_eleccion.FormattingEnabled = true;
+            this.cmb_eleccion.Location = new System.Drawing.Point(250, 78);
+            this.cmb_eleccion.Name = "cmb_eleccion";
+            this.cmb_eleccion.Size = new System.Drawing.Size(239, 32);
+            this.cmb_eleccion.TabIndex = 18;
+            // 
+            // panel_uniforme
+            // 
+            this.panel_uniforme.Controls.Add(this.num_b);
+            this.panel_uniforme.Controls.Add(this.label24);
+            this.panel_uniforme.Controls.Add(this.num_a);
+            this.panel_uniforme.Controls.Add(this.label25);
+            this.panel_uniforme.Controls.Add(this.label26);
+            this.panel_uniforme.Controls.Add(this.label30);
+            this.panel_uniforme.Location = new System.Drawing.Point(908, 393);
+            this.panel_uniforme.Name = "panel_uniforme";
+            this.panel_uniforme.Size = new System.Drawing.Size(316, 175);
+            this.panel_uniforme.TabIndex = 21;
+            this.panel_uniforme.Visible = false;
+            // 
+            // num_a
+            // 
+            this.num_a.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num_a.Location = new System.Drawing.Point(135, 88);
+            this.num_a.Maximum = new decimal(new int[] {
+            -79413593,
+            1113,
+            0,
+            0});
+            this.num_a.Name = "num_a";
+            this.num_a.Size = new System.Drawing.Size(120, 26);
+            this.num_a.TabIndex = 17;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(19, 134);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(61, 20);
+            this.label25.TabIndex = 6;
+            this.label25.Text = "Valor B";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(19, 90);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(61, 20);
+            this.label26.TabIndex = 5;
+            this.label26.Text = "Valor A";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label30.Location = new System.Drawing.Point(11, 16);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(292, 25);
+            this.label30.TabIndex = 0;
+            this.label30.Text = "Probabilidad Descarga Barco";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(95, 50);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(98, 25);
+            this.label24.TabIndex = 19;
+            this.label24.Text = "Uniforme";
+            // 
+            // num_b
+            // 
+            this.num_b.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num_b.Location = new System.Drawing.Point(135, 132);
+            this.num_b.Maximum = new decimal(new int[] {
+            -79413593,
+            1113,
+            0,
+            0});
+            this.num_b.Name = "num_b";
+            this.num_b.Size = new System.Drawing.Size(120, 26);
+            this.num_b.TabIndex = 20;
+            this.num_b.Value = new decimal(new int[] {
+            9,
+            0,
+            0,
+            0});
+            // 
+            // panel_poisson
+            // 
+            this.panel_poisson.Controls.Add(this.label27);
+            this.panel_poisson.Controls.Add(this.num_p);
+            this.panel_poisson.Controls.Add(this.label29);
+            this.panel_poisson.Controls.Add(this.label31);
+            this.panel_poisson.Location = new System.Drawing.Point(567, 393);
+            this.panel_poisson.Name = "panel_poisson";
+            this.panel_poisson.Size = new System.Drawing.Size(316, 175);
+            this.panel_poisson.TabIndex = 22;
+            this.panel_poisson.Visible = false;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(95, 50);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(89, 25);
+            this.label27.TabIndex = 19;
+            this.label27.Text = "Poisson";
+            // 
+            // num_p
+            // 
+            this.num_p.DecimalPlaces = 2;
+            this.num_p.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num_p.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.num_p.Location = new System.Drawing.Point(130, 109);
+            this.num_p.Maximum = new decimal(new int[] {
+            -79413593,
+            1113,
+            0,
+            0});
+            this.num_p.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.num_p.Name = "num_p";
+            this.num_p.Size = new System.Drawing.Size(120, 26);
+            this.num_p.TabIndex = 17;
+            this.num_p.Value = new decimal(new int[] {
+            167,
+            0,
+            0,
+            131072});
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.Location = new System.Drawing.Point(27, 111);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(67, 20);
+            this.label29.TabIndex = 5;
+            this.label29.Text = "Lambda";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.Location = new System.Drawing.Point(11, 16);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(277, 25);
+            this.label31.TabIndex = 0;
+            this.label31.Text = "Probabilidad Llegada Barco";
+            // 
             // tp4_window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1257, 540);
+            this.ClientSize = new System.Drawing.Size(1253, 589);
+            this.Controls.Add(this.panel_poisson);
+            this.Controls.Add(this.panel_uniforme);
             this.Controls.Add(this.boton_suma);
             this.Controls.Add(this.prob_descarga);
             this.Controls.Add(this.prob_llegada);
@@ -892,6 +1091,13 @@ namespace TP_SIM.TP4
             ((System.ComponentModel.ISupportInitialize)(this.pd_2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pd_1)).EndInit();
             this.boton_suma.ResumeLayout(false);
+            this.panel_uniforme.ResumeLayout(false);
+            this.panel_uniforme.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_a)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_b)).EndInit();
+            this.panel_poisson.ResumeLayout(false);
+            this.panel_poisson.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_p)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -946,5 +1152,19 @@ namespace TP_SIM.TP4
         private System.Windows.Forms.Panel boton_suma;
         private System.Windows.Forms.NumericUpDown num_fila_desde;
         private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.ComboBox cmb_eleccion;
+        private System.Windows.Forms.Panel panel_uniforme;
+        private System.Windows.Forms.NumericUpDown num_b;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.NumericUpDown num_a;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Panel panel_poisson;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.NumericUpDown num_p;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label31;
     }
 }
