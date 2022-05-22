@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using TP_SIM.TP4;
+using TP_SIM.TP5;
 
 namespace TP_SIM.Interfaz
 {
@@ -34,6 +35,13 @@ namespace TP_SIM.Interfaz
         private void btn_tp4_Click(object sender, EventArgs e)
         {
             var form = new tp4_window();
+            this.Hide();
+            form.Show();
+        }
+
+        private void btn_tp5_Click(object sender, EventArgs e)
+        {
+            var form = new tp5_window();
             this.Hide();
             form.Show();
         }

@@ -154,6 +154,15 @@
       <DependentUpon>tp4_window.cs</DependentUpon>
     </Compile>
     <Compile Include="TP4\VectorEstado.cs" />
+    <Compile Include="TP5\Clases\Camion.cs" />
+    <Compile Include="TP5\Clases\Estado.cs" />
+    <Compile Include="TP5\Clases\Servidor.cs" />
+    <Compile Include="TP5\tp5_window.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TP5\tp5_window.Designer.cs">
+      <DependentUpon>tp5_window.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Interfaz\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -195,6 +204,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TP4\tp4_window.resx">
       <DependentUpon>tp4_window.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TP5\tp5_window.resx">
+      <DependentUpon>tp5_window.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

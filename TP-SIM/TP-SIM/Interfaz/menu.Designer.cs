@@ -33,6 +33,7 @@ namespace TP_SIM.Interfaz
             this.btn_tp1 = new System.Windows.Forms.Button();
             this.btn_2 = new System.Windows.Forms.Button();
             this.btn_tp4 = new System.Windows.Forms.Button();
+            this.btn_tp5 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -78,11 +79,23 @@ namespace TP_SIM.Interfaz
             this.btn_tp4.UseVisualStyleBackColor = true;
             this.btn_tp4.Click += new System.EventHandler(this.btn_tp4_Click);
             // 
+            // btn_tp5
+            // 
+            this.btn_tp5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_tp5.Location = new System.Drawing.Point(340, 380);
+            this.btn_tp5.Name = "btn_tp5";
+            this.btn_tp5.Size = new System.Drawing.Size(119, 56);
+            this.btn_tp5.TabIndex = 4;
+            this.btn_tp5.Text = "TP5";
+            this.btn_tp5.UseVisualStyleBackColor = true;
+            this.btn_tp5.Click += new System.EventHandler(this.btn_tp5_Click);
+            // 
             // menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 445);
+            this.ClientSize = new System.Drawing.Size(800, 485);
+            this.Controls.Add(this.btn_tp5);
             this.Controls.Add(this.btn_tp4);
             this.Controls.Add(this.btn_2);
             this.Controls.Add(this.btn_tp1);
@@ -101,5 +114,6 @@ namespace TP_SIM.Interfaz
         private System.Windows.Forms.Button btn_tp1;
         private System.Windows.Forms.Button btn_2;
         private System.Windows.Forms.Button btn_tp4;
+        private System.Windows.Forms.Button btn_tp5;
     }
 }
