@@ -117,6 +117,8 @@ namespace TP_SIM.TP5
 
         private void simular()
         {
+            int cant_camiones_actual = 0;
+
             // Contador para ID de camiones
 
             int contador_id = 1;
@@ -141,7 +143,7 @@ namespace TP_SIM.TP5
             fila_anterior.rnd1 = resultados[0];
             fila_anterior.t_llegada = (decimal)resultados[1];
             fila_anterior.t_prox_llegada = fila_anterior.reloj + fila_anterior.t_llegada;
-            imprimirFila(fila_anterior);
+            cant_camiones_actual = imprimirFila(fila_anterior, cant_camiones_actual);
             // Se crea las siguientes filas
 
             for (int i = 0; i < this.iteraciones; i++)
@@ -270,7 +272,7 @@ namespace TP_SIM.TP5
                     // Si el evento no es una llegada, arrasta la anterior para calcular.
                     fila_actual.t_prox_llegada = fila_anterior.t_prox_llegada;
 
-                    var idServidorFinLavado = obtenerServidorFinAtencion(fila_actual.reloj, fila_anterior.t_fin_lavado); ;
+                    var idServidorFinLavado = obtenerServidorFinAtencion(fila_actual.reloj, fila_anterior.t_fin_lavado); 
                     fila_actual.t_fin_lavado[idServidorFinLavado - 1] = 0;
 
                     if (fila_actual.cola_lavado.Count != 0)
@@ -297,21 +299,23 @@ namespace TP_SIM.TP5
 
                     }
 
+                    
+
                 }
 
                 // Se cambia el orden de las filas
-                imprimirFila(fila_actual);
+                cant_camiones_actual = imprimirFila(fila_actual, cant_camiones_actual);
                 fila_anterior = fila_actual;
 
 
             }
         }
 
-        private void imprimirFila(VectorEstado filaImprimir)
+        private int imprimirFila(VectorEstado filaImprimir, int cant_camiones_actual)
         {
             int cant_columnas = 11 + filaImprimir.t_fin_mantenimiento.Count + filaImprimir.servidor_mantenimiento.Count + filaImprimir.t_fin_lavado.Count + filaImprimir.servidor_lavado.Count + filaImprimir.camiones.Count;
             var fila = new string[cant_columnas];
-            int puntero = 0;
+            int puntero = 7;
 
             fila[0] = filaImprimir.reloj.ToString("0.00");
             fila[1] = filaImprimir.evento.nombre;
@@ -326,7 +330,7 @@ namespace TP_SIM.TP5
                 fila[i] = filaImprimir.t_fin_mantenimiento[contador].ToString("0.00");
                 contador += 1;
             };
-            puntero += filaImprimir.t_fin_mantenimiento.Count + 1;
+            puntero += filaImprimir.t_fin_mantenimiento.Count;
             contador = 0;
             fila[puntero] = filaImprimir.cola_mantenimiento.Count.ToString();
             puntero++;
@@ -335,7 +339,7 @@ namespace TP_SIM.TP5
                 fila[i] = filaImprimir.servidor_mantenimiento[contador].estado.nombre;
                 contador += 1;
             };
-            puntero += filaImprimir.servidor_mantenimiento.Count + 1;
+            puntero += filaImprimir.servidor_mantenimiento.Count;
             contador = 0;
             fila[puntero] = filaImprimir.rnd3.ToString("0.00");
             puntero++;
@@ -346,7 +350,7 @@ namespace TP_SIM.TP5
                 fila[i] = filaImprimir.t_fin_lavado[contador].ToString("0.00");
                 contador += 1;
             };
-            puntero += filaImprimir.t_fin_lavado.Count + 1;
+            puntero += filaImprimir.t_fin_lavado.Count;
             contador = 0;
             fila[puntero] = filaImprimir.cola_lavado.Count.ToString();
             puntero++;
@@ -356,14 +360,23 @@ namespace TP_SIM.TP5
                 contador += 1;
             };
             contador = 0;
-            puntero += filaImprimir.servidor_lavado.Count + 1;
+            puntero += filaImprimir.servidor_lavado.Count;
             for (int i = puntero; i <= filaImprimir.camiones.Count + puntero - 1; i++)
             {
                 fila[i] = filaImprimir.camiones[contador].estado.nombre;
                 contador += 1;
             };
+
+            int columnas_a_agregar = filaImprimir.camiones.Count - cant_camiones_actual;
+            for (int i = columnas_a_agregar; i > 0; i--)
+            {
+                dgv_colas.Columns.Add($"Camion{filaImprimir.camiones[filaImprimir.camiones.Count - i].id}", $"Camion {filaImprimir.camiones[filaImprimir.camiones.Count - i].id}");
+            }
             dgv_colas.Rows.Add(fila);
-            
+
+            return filaImprimir.camiones.Count;
+
+
         }
 
         private Camion obtenerCamion(List<Camion> camiones, int idServidorFinMantenimiento)

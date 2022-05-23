@@ -36,3 +36,29 @@ C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.TP4.tp
 C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.TP4.TablaMontecharli.resources
 C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.TP5.tp5_window.resources
 C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.TP5.tablaSimulacion.resources
+C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP-SIM.csproj.AssemblyReference.cache
+C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.tp1_window.resources
+C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Interfaz.HistogramaDistribucion.resources
+C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Interfaz.Histograma.resources
+C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Interfaz.menu.resources
+C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Interfaz.TablaRandoms.resources
+C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Interfaz.TablaRNDistribucion.resources
+C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Interfaz.TestChi.resources
+C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Interfaz.TestKS.resources
+C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Interfaz.tp3_window.resources
+C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Properties.Resources.resources
+C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.TP4.TablaMontecharli.resources
+C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.TP4.tp4_window.resources
+C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.TP5.tablaSimulacion.resources
+C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.TP5.tp5_window.resources
+C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP-SIM.csproj.GenerateResource.cache
+C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP-SIM.exe
+C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP-SIM.pdb
+C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\bin\Debug\TP-SIM.exe.config
+C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\bin\Debug\TP-SIM.exe.manifest
+C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\bin\Debug\TP-SIM.application
+C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\bin\Debug\TP-SIM.exe
+C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\bin\Debug\TP-SIM.pdb
+C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP-SIM.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP-SIM.exe.manifest
+C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP-SIM.application
