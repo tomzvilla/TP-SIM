@@ -37,7 +37,9 @@ namespace TP_SIM.TP5
             exp_media_mantenimiento = _exp_media_mantenimiento;
             lambda_poisson = _lambda_poisson;
             exp_llegada = 1 / _lambda_poisson;
-    }
+            estados_posibles = new List<Estado>();
+            eventos_posibles = new List<Evento>();
+        }
 
         private void tablaSimulacion_Load(object sender, EventArgs e)
         {
@@ -139,8 +141,7 @@ namespace TP_SIM.TP5
             fila_anterior.rnd1 = resultados[0];
             fila_anterior.t_llegada = (decimal)resultados[1];
             fila_anterior.t_prox_llegada = fila_anterior.reloj + fila_anterior.t_llegada;
-
-
+            imprimirFila(fila_anterior);
             // Se crea las siguientes filas
 
             for (int i = 0; i < this.iteraciones; i++)
@@ -191,8 +192,8 @@ namespace TP_SIM.TP5
                         // Se cambia el estado del camion a SM, y el estado del servidor a ocupado
                         // Se asigna el servidor al camion
                         camion.estado = estados_posibles[1];
-                        camion.servidor_atencion = fila_actual.servidor_mantenimiento[servidorEstaLibre];
-                        fila_actual.servidor_mantenimiento[servidorEstaLibre].estado = estados_posibles[5];
+                        camion.servidor_atencion = fila_actual.servidor_mantenimiento[servidorEstaLibre - 1];
+                        fila_actual.servidor_mantenimiento[servidorEstaLibre - 1].estado = estados_posibles[5];
 
                         // Se calcula el tiempo de mantenimiento, y el proximo fin de mantenimiento (hay un tiempo por cada servidor)
 
@@ -205,18 +206,190 @@ namespace TP_SIM.TP5
                     {
                         // Si no hay servidores libres, los añade a la cola
                         fila_actual.cola_mantenimiento.Add(camion);
+                        camion.estado = estados_posibles[0];
                     }
-
                 }
-                else
+                else if (fila_actual.evento.id == 1)
                 {
                     // Si el evento no es una llegada, arrasta la anterior para calcular.
                     fila_actual.t_prox_llegada = fila_anterior.t_prox_llegada;
+
+                    var idServidorFinMantenimiento = obtenerServidorFinAtencion(fila_actual.reloj, fila_anterior.t_fin_mantenimiento); ;
+                    fila_actual.t_fin_mantenimiento[idServidorFinMantenimiento - 1] = 0;
+                    if (fila_actual.cola_mantenimiento.Count != 0)
+                    {
+                        Camion camion_a_mantener = fila_actual.cola_mantenimiento[0];
+                        // Se procesa el proximo camion
+                        // Se cambia el estado del camion a SM, y el estado del servidor sigue ocupado
+                        // Se asigna el servidor al camion
+                        camion_a_mantener.estado = estados_posibles[1];
+                        camion_a_mantener.servidor_atencion = fila_actual.servidor_mantenimiento[idServidorFinMantenimiento - 1];
+
+                        // Se calcula el tiempo de mantenimiento, y el proximo fin de mantenimiento (hay un tiempo por cada servidor)
+
+                        var finMantenimiento = generarRNDExponencial(genMantenimiento, (double)this.exp_media_mantenimiento);
+                        fila_actual.rnd2 = (decimal)finMantenimiento[0];
+                        fila_actual.t_mantenimiento = (decimal)finMantenimiento[1];
+                        fila_actual.t_fin_mantenimiento[idServidorFinMantenimiento - 1] = fila_actual.reloj + fila_actual.t_mantenimiento;
+                        fila_actual.cola_mantenimiento.RemoveAt(0);
+
+                    }
+                    else
+                    {
+                        fila_actual.servidor_mantenimiento[idServidorFinMantenimiento - 1].estado = estados_posibles[4];
+
+                    }
+                    Camion camion_a_lavar = obtenerCamion(fila_actual.camiones, idServidorFinMantenimiento);
+                    int servidorEstaLibre = servidorLibre(fila_anterior.servidor_lavado);
+                    if (servidorEstaLibre != 0)
+                    {
+                        // Se cambia el estado del camion a SL, y el estado del servidor a ocupado
+                        // Se asigna el servidor al camion
+                        camion_a_lavar.estado = estados_posibles[3];
+                        camion_a_lavar.servidor_atencion = fila_actual.servidor_lavado[servidorEstaLibre - 1];
+                        fila_actual.servidor_lavado[servidorEstaLibre - 1].estado = estados_posibles[5];
+
+                        // Se calcula el tiempo de mantenimiento, y el proximo fin de mantenimiento (hay un tiempo por cada servidor)
+
+                        var finLavado = generarRNDExponencial(genLavado, (double)this.exp_media_lavado);
+                        fila_actual.rnd3 = (decimal)finLavado[0];
+                        fila_actual.t_lavado = (decimal)finLavado[1];
+                        fila_actual.t_fin_lavado[servidorEstaLibre - 1] = fila_actual.reloj + fila_actual.t_lavado;
+                    }
+                    else
+                    {
+                        // Si no hay servidores libres, los añade a la cola
+                        fila_actual.cola_lavado.Add(camion_a_lavar);
+                        camion_a_lavar.estado = estados_posibles[2];
+                        
+                    }
+
+                }
+                else if (fila_actual.evento.id == 2)
+                {
+                    // Si el evento no es una llegada, arrasta la anterior para calcular.
+                    fila_actual.t_prox_llegada = fila_anterior.t_prox_llegada;
+
+                    var idServidorFinLavado = obtenerServidorFinAtencion(fila_actual.reloj, fila_anterior.t_fin_lavado); ;
+                    fila_actual.t_fin_lavado[idServidorFinLavado - 1] = 0;
+
+                    if (fila_actual.cola_lavado.Count != 0)
+                    {
+                        Camion camion_a_lavar = fila_actual.cola_lavado[0];
+                        // Se procesa el proximo camion
+                        // Se cambia el estado del camion a SL, y el estado del servidor sigue ocupado
+                        // Se asigna el servidor al camion
+                        camion_a_lavar.estado = estados_posibles[3];
+                        camion_a_lavar.servidor_atencion = fila_actual.servidor_lavado[idServidorFinLavado - 1];
+
+                        // Se calcula el tiempo de lavado, y el proximo fin de lavado (hay un tiempo por cada servidor)
+
+                        var finLavado = generarRNDExponencial(genLavado, (double)this.exp_media_mantenimiento);
+                        fila_actual.rnd3 = (decimal)finLavado[0];
+                        fila_actual.t_lavado = (decimal)finLavado[1];
+                        fila_actual.t_fin_lavado[idServidorFinLavado - 1] = fila_actual.reloj + fila_actual.t_lavado;
+                        fila_actual.cola_lavado.RemoveAt(0);
+
+                    }
+                    else
+                    {
+                        fila_actual.servidor_lavado[idServidorFinLavado - 1].estado = estados_posibles[4];
+
+                    }
+
                 }
 
+                // Se cambia el orden de las filas
+                imprimirFila(fila_actual);
+                fila_anterior = fila_actual;
+
+
             }
+        }
 
+        private void imprimirFila(VectorEstado filaImprimir)
+        {
+            int cant_columnas = 11 + filaImprimir.t_fin_mantenimiento.Count + filaImprimir.servidor_mantenimiento.Count + filaImprimir.t_fin_lavado.Count + filaImprimir.servidor_lavado.Count + filaImprimir.camiones.Count;
+            var fila = new string[cant_columnas];
+            int puntero = 0;
 
+            fila[0] = filaImprimir.reloj.ToString("0.00");
+            fila[1] = filaImprimir.evento.nombre;
+            fila[2] = filaImprimir.rnd1.ToString("0.00");
+            fila[3] = filaImprimir.t_llegada.ToString("0.00");
+            fila[4] = filaImprimir.t_prox_llegada.ToString("0.00");
+            fila[5] = filaImprimir.rnd2.ToString("0.00");
+            fila[6] = filaImprimir.t_mantenimiento.ToString("0.00");
+            int contador = 0;
+            for (int i = 7; i <= filaImprimir.t_fin_mantenimiento.Count + 6; i++)
+            {
+                fila[i] = filaImprimir.t_fin_mantenimiento[contador].ToString("0.00");
+                contador += 1;
+            };
+            puntero += filaImprimir.t_fin_mantenimiento.Count + 1;
+            contador = 0;
+            fila[puntero] = filaImprimir.cola_mantenimiento.Count.ToString();
+            puntero++;
+            for (int i = puntero; i <= filaImprimir.servidor_mantenimiento.Count + puntero-1; i++)
+            {
+                fila[i] = filaImprimir.servidor_mantenimiento[contador].estado.nombre;
+                contador += 1;
+            };
+            puntero += filaImprimir.servidor_mantenimiento.Count + 1;
+            contador = 0;
+            fila[puntero] = filaImprimir.rnd3.ToString("0.00");
+            puntero++;
+            fila[puntero] = filaImprimir.t_lavado.ToString("0.00");
+            puntero++;
+            for (int i = puntero; i <= filaImprimir.t_fin_lavado.Count + puntero - 1; i++)
+            {
+                fila[i] = filaImprimir.t_fin_lavado[contador].ToString("0.00");
+                contador += 1;
+            };
+            puntero += filaImprimir.t_fin_lavado.Count + 1;
+            contador = 0;
+            fila[puntero] = filaImprimir.cola_lavado.Count.ToString();
+            puntero++;
+            for (int i = puntero; i <= filaImprimir.servidor_lavado.Count + puntero - 1; i++)
+            {
+                fila[i] = filaImprimir.servidor_lavado[contador].estado.nombre;
+                contador += 1;
+            };
+            contador = 0;
+            puntero += filaImprimir.servidor_lavado.Count + 1;
+            for (int i = puntero; i <= filaImprimir.camiones.Count + puntero - 1; i++)
+            {
+                fila[i] = filaImprimir.camiones[contador].estado.nombre;
+                contador += 1;
+            };
+            dgv_colas.Rows.Add(fila);
+            
+        }
+
+        private Camion obtenerCamion(List<Camion> camiones, int idServidorFinMantenimiento)
+        {
+            Camion camion = new Camion();
+            for (int i = 0; i < camiones.Count; i++)
+            {
+                if(camiones[i].servidor_atencion.id == idServidorFinMantenimiento)
+                {
+                    camion = camiones[i];
+                }
+            }
+            return camion;
+        }
+
+        private int obtenerServidorFinAtencion(decimal reloj, List<decimal> t_fin_servidor)
+        {
+            int id = -1;
+            for(int i=0; i < t_fin_servidor.Count; i++)
+            {
+                if(t_fin_servidor[i] == reloj)
+                {
+                    id = i;
+                }
+            }
+            return id + 1;
         }
 
         private int servidorLibre(List<Servidor> servidores)

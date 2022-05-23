@@ -156,7 +156,9 @@
     <Compile Include="TP4\VectorEstado.cs" />
     <Compile Include="TP5\Clases\Camion.cs" />
     <Compile Include="TP5\Clases\Estado.cs" />
+    <Compile Include="TP5\Clases\Evento.cs" />
     <Compile Include="TP5\Clases\Servidor.cs" />
+    <Compile Include="TP5\Clases\VectorEstado.cs" />
     <Compile Include="TP5\tablaSimulacion.cs">
       <SubType>Form</SubType>
     </Compile>
