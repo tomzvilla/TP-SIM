@@ -29,7 +29,10 @@ namespace TP_SIM.Clases.Distribuciones
             d = _d;
             flag = false;
         }
+        public GeneradorDistribuciones()
+        {
 
+        }
 
 
         public double generarRND(Random generador)
@@ -55,7 +58,7 @@ namespace TP_SIM.Clases.Distribuciones
         }
 
 
-        private double generarRNDExponencial(Random generador)
+        public double generarRNDExponencial(Random generador)
         {
             var rnd = generador.NextDouble();
             double valor = -(this.m) * Math.Log(1 - rnd);

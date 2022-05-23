@@ -6,14 +6,9 @@ using System.Threading.Tasks;
 
 namespace TP_SIM.TP5.Clases
 {
-    public class Camion
+    public class Evento
     {
         public int id { get; set; }
-        public Estado estado { get; set; }
-
-        public Servidor servidor_atencion { get; set; }
-        public decimal diaEntradaSistema { get; set; }
-
-
+        public string nombre { get; set; }
     }
 }

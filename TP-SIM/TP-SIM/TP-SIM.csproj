@@ -157,6 +157,12 @@
     <Compile Include="TP5\Clases\Camion.cs" />
     <Compile Include="TP5\Clases\Estado.cs" />
     <Compile Include="TP5\Clases\Servidor.cs" />
+    <Compile Include="TP5\tablaSimulacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TP5\tablaSimulacion.Designer.cs">
+      <DependentUpon>tablaSimulacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="TP5\tp5_window.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -204,6 +210,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TP4\tp4_window.resx">
       <DependentUpon>tp4_window.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TP5\tablaSimulacion.resx">
+      <DependentUpon>tablaSimulacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TP5\tp5_window.resx">
       <DependentUpon>tp5_window.cs</DependentUpon>

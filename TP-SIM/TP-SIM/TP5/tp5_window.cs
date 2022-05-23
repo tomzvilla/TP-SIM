@@ -31,5 +31,32 @@ namespace TP_SIM.TP5
                 bandera = true;
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (validar())
+            {
+                simular();
+            }
+        }
+
+        private void simular()
+        {
+            var form = new tablaSimulacion(this.num_iteraciones.Value, this.n_mecanicos.Value, this.n_lavadores.Value, this.filas_a_mostrar.Value, this.fila_desde.Value, this.exp_media_lavado.Value, this.exp_media_mantenimiento.Value, this.lambda_p.Value);
+            form.ShowDialog();
+        }
+
+        private bool validar()
+        {
+            if(fila_desde.Value + filas_a_mostrar.Value <= num_iteraciones.Value)
+            {
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("El numero de filas a mostrar tiene que ser menor a la cantidad de iteraciones", "Alerta", MessageBoxButtons.OK);
+                return false;
+            }
+        }
     }
 }

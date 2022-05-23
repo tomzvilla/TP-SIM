@@ -30,7 +30,7 @@ namespace TP_SIM.TP5
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.n_mecanicos = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -40,25 +40,28 @@ namespace TP_SIM.TP5
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
+            this.n_lavadores = new System.Windows.Forms.NumericUpDown();
+            this.num_iteraciones = new System.Windows.Forms.NumericUpDown();
+            this.fila_desde = new System.Windows.Forms.NumericUpDown();
             this.p_probabilidades = new System.Windows.Forms.Panel();
-            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown7 = new System.Windows.Forms.NumericUpDown();
+            this.exp_media_lavado = new System.Windows.Forms.NumericUpDown();
+            this.exp_media_mantenimiento = new System.Windows.Forms.NumericUpDown();
+            this.lambda_p = new System.Windows.Forms.NumericUpDown();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
+            this.label11 = new System.Windows.Forms.Label();
+            this.filas_a_mostrar = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.n_mecanicos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.n_lavadores)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_iteraciones)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fila_desde)).BeginInit();
             this.p_probabilidades.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.exp_media_lavado)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.exp_media_mantenimiento)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lambda_p)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.filas_a_mostrar)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -71,24 +74,24 @@ namespace TP_SIM.TP5
             this.label1.TabIndex = 0;
             this.label1.Text = "Mecanicos";
             // 
-            // numericUpDown1
+            // n_mecanicos
             // 
-            this.numericUpDown1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDown1.Location = new System.Drawing.Point(218, 10);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
+            this.n_mecanicos.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.n_mecanicos.Location = new System.Drawing.Point(218, 10);
+            this.n_mecanicos.Maximum = new decimal(new int[] {
             -905992047,
             126,
             0,
             0});
-            this.numericUpDown1.Minimum = new decimal(new int[] {
+            this.n_mecanicos.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 29);
-            this.numericUpDown1.TabIndex = 1;
-            this.numericUpDown1.Value = new decimal(new int[] {
+            this.n_mecanicos.Name = "n_mecanicos";
+            this.n_mecanicos.Size = new System.Drawing.Size(120, 29);
+            this.n_mecanicos.TabIndex = 1;
+            this.n_mecanicos.Value = new decimal(new int[] {
             1,
             0,
             0,
@@ -184,70 +187,70 @@ namespace TP_SIM.TP5
             this.label10.TabIndex = 9;
             this.label10.Text = "Tiempo Lavado";
             // 
-            // numericUpDown2
+            // n_lavadores
             // 
-            this.numericUpDown2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDown2.Location = new System.Drawing.Point(218, 60);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
+            this.n_lavadores.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.n_lavadores.Location = new System.Drawing.Point(218, 60);
+            this.n_lavadores.Maximum = new decimal(new int[] {
             -905992047,
             126,
             0,
             0});
-            this.numericUpDown2.Minimum = new decimal(new int[] {
+            this.n_lavadores.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(120, 29);
-            this.numericUpDown2.TabIndex = 11;
-            this.numericUpDown2.Value = new decimal(new int[] {
+            this.n_lavadores.Name = "n_lavadores";
+            this.n_lavadores.Size = new System.Drawing.Size(120, 29);
+            this.n_lavadores.TabIndex = 11;
+            this.n_lavadores.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
             // 
-            // numericUpDown3
+            // num_iteraciones
             // 
-            this.numericUpDown3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDown3.Location = new System.Drawing.Point(218, 110);
-            this.numericUpDown3.Maximum = new decimal(new int[] {
+            this.num_iteraciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num_iteraciones.Location = new System.Drawing.Point(218, 110);
+            this.num_iteraciones.Maximum = new decimal(new int[] {
             -905992047,
             126,
             0,
             0});
-            this.numericUpDown3.Minimum = new decimal(new int[] {
+            this.num_iteraciones.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(120, 29);
-            this.numericUpDown3.TabIndex = 12;
-            this.numericUpDown3.Value = new decimal(new int[] {
+            this.num_iteraciones.Name = "num_iteraciones";
+            this.num_iteraciones.Size = new System.Drawing.Size(120, 29);
+            this.num_iteraciones.TabIndex = 12;
+            this.num_iteraciones.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
             // 
-            // numericUpDown4
+            // fila_desde
             // 
-            this.numericUpDown4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDown4.Location = new System.Drawing.Point(218, 159);
-            this.numericUpDown4.Maximum = new decimal(new int[] {
+            this.fila_desde.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fila_desde.Location = new System.Drawing.Point(218, 159);
+            this.fila_desde.Maximum = new decimal(new int[] {
             -905992047,
             126,
             0,
             0});
-            this.numericUpDown4.Minimum = new decimal(new int[] {
+            this.fila_desde.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(120, 29);
-            this.numericUpDown4.TabIndex = 13;
-            this.numericUpDown4.Value = new decimal(new int[] {
+            this.fila_desde.Name = "fila_desde";
+            this.fila_desde.Size = new System.Drawing.Size(120, 29);
+            this.fila_desde.TabIndex = 13;
+            this.fila_desde.Value = new decimal(new int[] {
             1,
             0,
             0,
@@ -255,9 +258,9 @@ namespace TP_SIM.TP5
             // 
             // p_probabilidades
             // 
-            this.p_probabilidades.Controls.Add(this.numericUpDown7);
-            this.p_probabilidades.Controls.Add(this.numericUpDown6);
-            this.p_probabilidades.Controls.Add(this.numericUpDown5);
+            this.p_probabilidades.Controls.Add(this.exp_media_lavado);
+            this.p_probabilidades.Controls.Add(this.exp_media_mantenimiento);
+            this.p_probabilidades.Controls.Add(this.lambda_p);
             this.p_probabilidades.Controls.Add(this.label5);
             this.p_probabilidades.Controls.Add(this.label6);
             this.p_probabilidades.Controls.Add(this.label9);
@@ -270,91 +273,93 @@ namespace TP_SIM.TP5
             this.p_probabilidades.TabIndex = 14;
             this.p_probabilidades.Visible = false;
             // 
-            // numericUpDown5
+            // exp_media_lavado
             // 
-            this.numericUpDown5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDown5.Location = new System.Drawing.Point(175, 50);
-            this.numericUpDown5.Maximum = new decimal(new int[] {
+            this.exp_media_lavado.DecimalPlaces = 2;
+            this.exp_media_lavado.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exp_media_lavado.Location = new System.Drawing.Point(175, 231);
+            this.exp_media_lavado.Maximum = new decimal(new int[] {
             -905992047,
             126,
             0,
             0});
-            this.numericUpDown5.Minimum = new decimal(new int[] {
+            this.exp_media_lavado.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown5.Name = "numericUpDown5";
-            this.numericUpDown5.Size = new System.Drawing.Size(120, 29);
-            this.numericUpDown5.TabIndex = 15;
-            this.numericUpDown5.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // numericUpDown6
-            // 
-            this.numericUpDown6.DecimalPlaces = 2;
-            this.numericUpDown6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDown6.Location = new System.Drawing.Point(175, 154);
-            this.numericUpDown6.Maximum = new decimal(new int[] {
-            -905992047,
-            126,
-            0,
-            0});
-            this.numericUpDown6.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown6.Name = "numericUpDown6";
-            this.numericUpDown6.Size = new System.Drawing.Size(120, 29);
-            this.numericUpDown6.TabIndex = 16;
-            this.numericUpDown6.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            // 
-            // numericUpDown7
-            // 
-            this.numericUpDown7.DecimalPlaces = 2;
-            this.numericUpDown7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDown7.Location = new System.Drawing.Point(175, 231);
-            this.numericUpDown7.Maximum = new decimal(new int[] {
-            -905992047,
-            126,
-            0,
-            0});
-            this.numericUpDown7.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown7.Name = "numericUpDown7";
-            this.numericUpDown7.Size = new System.Drawing.Size(120, 29);
-            this.numericUpDown7.TabIndex = 17;
-            this.numericUpDown7.Value = new decimal(new int[] {
+            this.exp_media_lavado.Name = "exp_media_lavado";
+            this.exp_media_lavado.Size = new System.Drawing.Size(120, 29);
+            this.exp_media_lavado.TabIndex = 17;
+            this.exp_media_lavado.Value = new decimal(new int[] {
             6,
             0,
             0,
             0});
             // 
+            // exp_media_mantenimiento
+            // 
+            this.exp_media_mantenimiento.DecimalPlaces = 2;
+            this.exp_media_mantenimiento.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exp_media_mantenimiento.Location = new System.Drawing.Point(175, 154);
+            this.exp_media_mantenimiento.Maximum = new decimal(new int[] {
+            -905992047,
+            126,
+            0,
+            0});
+            this.exp_media_mantenimiento.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.exp_media_mantenimiento.Name = "exp_media_mantenimiento";
+            this.exp_media_mantenimiento.Size = new System.Drawing.Size(120, 29);
+            this.exp_media_mantenimiento.TabIndex = 16;
+            this.exp_media_mantenimiento.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // lambda_p
+            // 
+            this.lambda_p.DecimalPlaces = 2;
+            this.lambda_p.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lambda_p.Location = new System.Drawing.Point(175, 50);
+            this.lambda_p.Maximum = new decimal(new int[] {
+            -905992047,
+            126,
+            0,
+            0});
+            this.lambda_p.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.lambda_p.Name = "lambda_p";
+            this.lambda_p.Size = new System.Drawing.Size(120, 29);
+            this.lambda_p.TabIndex = 15;
+            this.lambda_p.Value = new decimal(new int[] {
+            66,
+            0,
+            0,
+            131072});
+            // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(36, 223);
+            this.button1.Location = new System.Drawing.Point(37, 269);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(121, 47);
             this.button1.TabIndex = 15;
             this.button1.Text = "Simular";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(218, 220);
+            this.button2.Location = new System.Drawing.Point(218, 269);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(121, 47);
             this.button2.TabIndex = 16;
@@ -364,20 +369,55 @@ namespace TP_SIM.TP5
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.filas_a_mostrar);
+            this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.numericUpDown1);
+            this.panel1.Controls.Add(this.n_mecanicos);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.numericUpDown4);
+            this.panel1.Controls.Add(this.fila_desde);
             this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.numericUpDown3);
-            this.panel1.Controls.Add(this.numericUpDown2);
+            this.panel1.Controls.Add(this.num_iteraciones);
+            this.panel1.Controls.Add(this.n_lavadores);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(361, 278);
+            this.panel1.Size = new System.Drawing.Size(363, 335);
             this.panel1.TabIndex = 17;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(45, 212);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(85, 24);
+            this.label11.TabIndex = 17;
+            this.label11.Text = "Nro Filas";
+            // 
+            // filas_a_mostrar
+            // 
+            this.filas_a_mostrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.filas_a_mostrar.Location = new System.Drawing.Point(218, 210);
+            this.filas_a_mostrar.Maximum = new decimal(new int[] {
+            -905992047,
+            126,
+            0,
+            0});
+            this.filas_a_mostrar.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.filas_a_mostrar.Name = "filas_a_mostrar";
+            this.filas_a_mostrar.Size = new System.Drawing.Size(120, 29);
+            this.filas_a_mostrar.TabIndex = 18;
+            this.filas_a_mostrar.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // tp5_window
             // 
@@ -390,17 +430,18 @@ namespace TP_SIM.TP5
             this.Controls.Add(this.p_probabilidades);
             this.Name = "tp5_window";
             this.Text = "tp5_window";
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.n_mecanicos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.n_lavadores)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_iteraciones)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fila_desde)).EndInit();
             this.p_probabilidades.ResumeLayout(false);
             this.p_probabilidades.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.exp_media_lavado)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.exp_media_mantenimiento)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lambda_p)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.filas_a_mostrar)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -408,7 +449,7 @@ namespace TP_SIM.TP5
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown n_mecanicos;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
@@ -418,15 +459,17 @@ namespace TP_SIM.TP5
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.NumericUpDown numericUpDown3;
-        private System.Windows.Forms.NumericUpDown numericUpDown4;
+        private System.Windows.Forms.NumericUpDown n_lavadores;
+        private System.Windows.Forms.NumericUpDown num_iteraciones;
+        private System.Windows.Forms.NumericUpDown fila_desde;
         private System.Windows.Forms.Panel p_probabilidades;
-        private System.Windows.Forms.NumericUpDown numericUpDown7;
-        private System.Windows.Forms.NumericUpDown numericUpDown6;
-        private System.Windows.Forms.NumericUpDown numericUpDown5;
+        private System.Windows.Forms.NumericUpDown exp_media_lavado;
+        private System.Windows.Forms.NumericUpDown exp_media_mantenimiento;
+        private System.Windows.Forms.NumericUpDown lambda_p;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.NumericUpDown filas_a_mostrar;
+        private System.Windows.Forms.Label label11;
     }
 }
