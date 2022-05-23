@@ -371,7 +371,7 @@ namespace TP_SIM.TP5
             Camion camion = new Camion();
             for (int i = 0; i < camiones.Count; i++)
             {
-                if(camiones[i].servidor_atencion.id == idServidorFinMantenimiento)
+                if(camiones[i].servidor_atencion != null && camiones[i].servidor_atencion.id == idServidorFinMantenimiento)
                 {
                     camion = camiones[i];
                 }
@@ -398,7 +398,7 @@ namespace TP_SIM.TP5
             {
                 if (servidores[i].estado.Equals(estados_posibles[4]))
                 {
-                    return i;
+                    return i + 1;
                 }
             }
             return 0;
@@ -409,8 +409,8 @@ namespace TP_SIM.TP5
             var lista = new List<decimal>(); 
             decimal minimo = t_prox_llegada;
             int index = 0;
-            decimal min_lavado = 100;
-            decimal min_mantenimiento = 100;
+            decimal min_lavado = 1000000000000000000;
+            decimal min_mantenimiento = 10000000000000000000;
 
             for(int i = 0; i < t_fin_mantenimiento.Count; i++)
             {
