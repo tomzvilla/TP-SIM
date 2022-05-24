@@ -24,5 +24,14 @@ namespace TP_SIM.TP5.Clases
         public List<Camion> cola_lavado { get; set; }
         public List<Servidor> servidor_lavado{ get; set; }
         public List<Camion> camiones { get; set; }
+        public decimal tasa_entrada { get; set; }
+        public decimal tasa_salida { get; set; }
+        public decimal tiempoPermanenciaColaMantenimiento { get; set; }
+        public decimal tiempoPermanenciaColaLavado{ get; set; }
+        public decimal cantPromCamionesEnColaMantenimiento { get; set; }
+        public decimal cantPromCamionesEnColaLavado { get; set; }
+        public List<decimal> porc_ocupacion_mecanico { get; set; }
+        public List<decimal> porc_ocupacion_lavador { get; set; }
+        public decimal porc_camiones_atendidos_sin_esperar { get; set; }
     }
 }

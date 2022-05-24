@@ -10,9 +10,9 @@ namespace TP_SIM.TP5.Clases
     {
         public int id { get; set; }
         public Estado estado { get; set; }
-
         public Servidor servidor_atencion { get; set; }
-        public decimal diaEntradaSistema { get; set; }
+        public decimal diaEntradaMantenimiento { get; set; }
+        public decimal diaEntradaLavado { get; set; }
 
 
     }

@@ -57,51 +57,60 @@ namespace TP_SIM.TP5
             this.tmantenimiento});
             this.dgv_colas.Location = new System.Drawing.Point(12, 12);
             this.dgv_colas.Name = "dgv_colas";
+            this.dgv_colas.ReadOnly = true;
             this.dgv_colas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_colas.Size = new System.Drawing.Size(1412, 506);
             this.dgv_colas.TabIndex = 0;
+            this.dgv_colas.ColumnAdded += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgv_colas_ColumnAdded);
             // 
             // reloj
             // 
             this.reloj.HeaderText = "Reloj";
             this.reloj.Name = "reloj";
+            this.reloj.ReadOnly = true;
             this.reloj.Width = 56;
             // 
             // evento
             // 
             this.evento.HeaderText = "Evento";
             this.evento.Name = "evento";
+            this.evento.ReadOnly = true;
             this.evento.Width = 66;
             // 
             // rnd1
             // 
             this.rnd1.HeaderText = "RND";
             this.rnd1.Name = "rnd1";
+            this.rnd1.ReadOnly = true;
             this.rnd1.Width = 56;
             // 
             // tllegada
             // 
             this.tllegada.HeaderText = "T llegada";
             this.tllegada.Name = "tllegada";
-            this.tllegada.Width = 76;
+            this.tllegada.ReadOnly = true;
+            this.tllegada.Width = 70;
             // 
             // tproxllegada
             // 
             this.tproxllegada.HeaderText = "T Prox Llegada";
             this.tproxllegada.Name = "tproxllegada";
-            this.tproxllegada.Width = 104;
+            this.tproxllegada.ReadOnly = true;
+            this.tproxllegada.Width = 96;
             // 
             // rnd2
             // 
             this.rnd2.HeaderText = "RND";
             this.rnd2.Name = "rnd2";
+            this.rnd2.ReadOnly = true;
             this.rnd2.Width = 56;
             // 
             // tmantenimiento
             // 
             this.tmantenimiento.HeaderText = "T Mantenimiento";
             this.tmantenimiento.Name = "tmantenimiento";
-            this.tmantenimiento.Width = 111;
+            this.tmantenimiento.ReadOnly = true;
+            this.tmantenimiento.Width = 102;
             // 
             // tablaSimulacion
             // 
