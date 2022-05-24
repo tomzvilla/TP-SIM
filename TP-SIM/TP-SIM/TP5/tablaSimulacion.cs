@@ -33,7 +33,7 @@ namespace TP_SIM.TP5
             lavadores = _lavadores;
             filas_a_mostrar = _filas_a_mostrar;
             fila_desde = _fila_desde;
-            exp_media_lavado = _exp_media_lavado;
+            exp_media_lavado = _exp_media_lavado / 24;
             exp_media_mantenimiento = _exp_media_mantenimiento;
             lambda_poisson = _lambda_poisson;
             exp_llegada = 1 / _lambda_poisson;
@@ -106,6 +106,11 @@ namespace TP_SIM.TP5
                 id = 5,
                 nombre = "Ocupado"
             };
+            var destruccion = new Estado()
+            {
+                id = 6,
+                nombre = "/////////"
+            };
 
             this.estados_posibles.Add(EM);
             this.estados_posibles.Add(SM);
@@ -113,6 +118,7 @@ namespace TP_SIM.TP5
             this.estados_posibles.Add(SL);
             this.estados_posibles.Add(L);
             this.estados_posibles.Add(O);
+            this.estados_posibles.Add(destruccion);
         }
 
         private void simular()
@@ -132,8 +138,8 @@ namespace TP_SIM.TP5
             var fila_anterior = new VectorEstado();
             fila_anterior.reloj = 0;
             fila_anterior.evento = new Evento() { nombre = "Inicial" };
-            fila_anterior.servidor_mantenimiento = crearServidores((int)mecanicos);
-            fila_anterior.servidor_lavado = crearServidores((int)lavadores);
+            fila_anterior.servidor_mantenimiento = crearServidores((int)mecanicos,0);
+            fila_anterior.servidor_lavado = crearServidores((int)lavadores,1);
             fila_anterior.t_fin_mantenimiento = new List<decimal>(new decimal[(int)mecanicos]);
             fila_anterior.t_fin_lavado = new List<decimal>(new decimal[(int)lavadores]);
             fila_anterior.cola_lavado = new List<Camion>();
@@ -174,7 +180,8 @@ namespace TP_SIM.TP5
                     var camion = new Camion
                     {
                         id = contador_id,
-                        diaEntradaSistema = fila_actual.reloj
+                        diaEntradaSistema = fila_actual.reloj,
+                        servidor_atencion = null
                     };
                     contador_id += 1;
                     fila_actual.camiones.Add(camion);
@@ -218,6 +225,8 @@ namespace TP_SIM.TP5
 
                     var idServidorFinMantenimiento = obtenerServidorFinAtencion(fila_actual.reloj, fila_anterior.t_fin_mantenimiento); ;
                     fila_actual.t_fin_mantenimiento[idServidorFinMantenimiento - 1] = 0;
+                    Camion camion_a_lavar = obtenerCamion(fila_actual.camiones, idServidorFinMantenimiento, 0);
+                    camion_a_lavar.servidor_atencion = null;
                     if (fila_actual.cola_mantenimiento.Count != 0)
                     {
                         Camion camion_a_mantener = fila_actual.cola_mantenimiento[0];
@@ -241,7 +250,7 @@ namespace TP_SIM.TP5
                         fila_actual.servidor_mantenimiento[idServidorFinMantenimiento - 1].estado = estados_posibles[4];
 
                     }
-                    Camion camion_a_lavar = obtenerCamion(fila_actual.camiones, idServidorFinMantenimiento);
+                    
                     int servidorEstaLibre = servidorLibre(fila_anterior.servidor_lavado);
                     if (servidorEstaLibre != 0)
                     {
@@ -251,7 +260,7 @@ namespace TP_SIM.TP5
                         camion_a_lavar.servidor_atencion = fila_actual.servidor_lavado[servidorEstaLibre - 1];
                         fila_actual.servidor_lavado[servidorEstaLibre - 1].estado = estados_posibles[5];
 
-                        // Se calcula el tiempo de mantenimiento, y el proximo fin de mantenimiento (hay un tiempo por cada servidor)
+                        // Se calcula el tiempo de lavado, y el proximo fin de lavado (hay un tiempo por cada servidor)
 
                         var finLavado = generarRNDExponencial(genLavado, (double)this.exp_media_lavado);
                         fila_actual.rnd3 = (decimal)finLavado[0];
@@ -263,7 +272,9 @@ namespace TP_SIM.TP5
                         // Si no hay servidores libres, los añade a la cola
                         fila_actual.cola_lavado.Add(camion_a_lavar);
                         camion_a_lavar.estado = estados_posibles[2];
-                        
+                        camion_a_lavar.servidor_atencion = null;
+                       
+
                     }
 
                 }
@@ -272,7 +283,19 @@ namespace TP_SIM.TP5
                     // Si el evento no es una llegada, arrasta la anterior para calcular.
                     fila_actual.t_prox_llegada = fila_anterior.t_prox_llegada;
 
-                    var idServidorFinLavado = obtenerServidorFinAtencion(fila_actual.reloj, fila_anterior.t_fin_lavado); 
+                    var idServidorFinLavado = obtenerServidorFinAtencion(fila_actual.reloj, fila_anterior.t_fin_lavado);
+
+                    var camion_a_destruir = obtenerCamion(fila_actual.camiones, idServidorFinLavado, 1);
+
+
+                    for(int j=0; j< fila_actual.camiones.Count; j++) { 
+                        if(fila_actual.camiones[j].id == camion_a_destruir.id)
+                        {
+                            fila_actual.camiones[j].estado = estados_posibles[6];
+                            fila_actual.camiones[j].servidor_atencion = null;
+                        }
+                    }
+                    
                     fila_actual.t_fin_lavado[idServidorFinLavado - 1] = 0;
 
                     if (fila_actual.cola_lavado.Count != 0)
@@ -286,7 +309,7 @@ namespace TP_SIM.TP5
 
                         // Se calcula el tiempo de lavado, y el proximo fin de lavado (hay un tiempo por cada servidor)
 
-                        var finLavado = generarRNDExponencial(genLavado, (double)this.exp_media_mantenimiento);
+                        var finLavado = generarRNDExponencial(genLavado, (double)this.exp_media_lavado);
                         fila_actual.rnd3 = (decimal)finLavado[0];
                         fila_actual.t_lavado = (decimal)finLavado[1];
                         fila_actual.t_fin_lavado[idServidorFinLavado - 1] = fila_actual.reloj + fila_actual.t_lavado;
@@ -379,12 +402,12 @@ namespace TP_SIM.TP5
 
         }
 
-        private Camion obtenerCamion(List<Camion> camiones, int idServidorFinMantenimiento)
+        private Camion obtenerCamion(List<Camion> camiones, int idServidor, int tipo)
         {
             Camion camion = new Camion();
             for (int i = 0; i < camiones.Count; i++)
             {
-                if(camiones[i].servidor_atencion != null && camiones[i].servidor_atencion.id == idServidorFinMantenimiento)
+                if (camiones[i].servidor_atencion != null && camiones[i].servidor_atencion.tipoServidor == tipo && camiones[i].servidor_atencion.id == idServidor)
                 {
                     camion = camiones[i];
                 }
@@ -457,7 +480,7 @@ namespace TP_SIM.TP5
 
         }
 
-        private List<Servidor> crearServidores(int num_servidor)
+        private List<Servidor> crearServidores(int num_servidor, int tipo)
         {
             var lista = new List<Servidor>();
             for(int i = 1; i <= num_servidor; i++)
@@ -466,7 +489,7 @@ namespace TP_SIM.TP5
                 {
                     id = i,
                     estado = estados_posibles[4],
-                    tipoServidor = 0,
+                    tipoServidor = tipo,
                     tiempoLibre = 0
                 };
                 lista.Add(obj);
