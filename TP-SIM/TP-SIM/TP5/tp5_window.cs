@@ -48,7 +48,7 @@ namespace TP_SIM.TP5
 
         private bool validar()
         {
-            if(fila_desde.Value + filas_a_mostrar.Value <= num_iteraciones.Value)
+            if(fila_desde.Value + filas_a_mostrar.Value - 1 <= num_iteraciones.Value)
             {
                 return true;
             }

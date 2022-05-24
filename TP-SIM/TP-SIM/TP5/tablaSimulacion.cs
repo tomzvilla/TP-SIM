@@ -327,7 +327,8 @@ namespace TP_SIM.TP5
                 }
 
                 // Se cambia el orden de las filas
-                cant_camiones_actual = imprimirFila(fila_actual, cant_camiones_actual);
+                if ((i >= this.fila_desde - 1 && i < this.fila_desde + this.filas_a_mostrar - 1) || (i == this.iteraciones - 1 && this.iteraciones != this.fila_desde + this.filas_a_mostrar - 1))
+                    cant_camiones_actual = imprimirFila(fila_actual, cant_camiones_actual);
                 fila_anterior = fila_actual;
 
 
