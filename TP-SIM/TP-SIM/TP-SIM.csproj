@@ -141,6 +141,19 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Runge Kutta\fila_rk.cs" />
+    <Compile Include="Runge Kutta\rk_tabla.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Runge Kutta\rk_tabla.Designer.cs">
+      <DependentUpon>rk_tabla.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Runge Kutta\rk_llegada_ataque.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Runge Kutta\rk_llegada_ataque.Designer.cs">
+      <DependentUpon>rk_llegada_ataque.cs</DependentUpon>
+    </Compile>
     <Compile Include="TP4\TablaMontecharli.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -207,6 +220,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Runge Kutta\rk_tabla.resx">
+      <DependentUpon>rk_tabla.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Runge Kutta\rk_llegada_ataque.resx">
+      <DependentUpon>rk_llegada_ataque.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TP4\TablaMontecharli.resx">
       <DependentUpon>TablaMontecharli.cs</DependentUpon>
     </EmbeddedResource>

@@ -62,3 +62,5 @@ C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM
 C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP-SIM.csproj.CoreCompileInputs.cache
 C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP-SIM.exe.manifest
 C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP-SIM.application
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Runge_Kutta.rk_tabla.resources
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Runge_Kutta.rk_llegada_ataque.resources

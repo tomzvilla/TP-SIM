@@ -85,101 +85,121 @@ namespace TP_SIM.TP4
             this.dgv_montecarlo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_montecarlo.Size = new System.Drawing.Size(1193, 510);
             this.dgv_montecarlo.TabIndex = 0;
+            this.dgv_montecarlo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_montecarlo_CellContentClick);
             // 
             // reloj
             // 
             this.reloj.HeaderText = "Reloj";
             this.reloj.Name = "reloj";
+            this.reloj.ReadOnly = true;
             // 
             // rnd1
             // 
             this.rnd1.HeaderText = "RND1";
             this.rnd1.Name = "rnd1";
+            this.rnd1.ReadOnly = true;
             // 
             // llegada_barcos
             // 
             this.llegada_barcos.HeaderText = "Llegada Barcos";
             this.llegada_barcos.Name = "llegada_barcos";
+            this.llegada_barcos.ReadOnly = true;
             // 
             // rnd2
             // 
             this.rnd2.HeaderText = "RND2";
             this.rnd2.Name = "rnd2";
+            this.rnd2.ReadOnly = true;
             // 
             // barcos_descargados
             // 
             this.barcos_descargados.HeaderText = "Barcos Descargados";
             this.barcos_descargados.Name = "barcos_descargados";
+            this.barcos_descargados.ReadOnly = true;
             // 
             // barcos_sin_descargar
             // 
             this.barcos_sin_descargar.HeaderText = "Barcos S/Descargar";
             this.barcos_sin_descargar.Name = "barcos_sin_descargar";
+            this.barcos_sin_descargar.ReadOnly = true;
             // 
             // barcos_total
             // 
             this.barcos_total.HeaderText = "Total Barcos";
             this.barcos_total.Name = "barcos_total";
+            this.barcos_total.ReadOnly = true;
             // 
             // dias_muelle_vacio
             // 
             this.dias_muelle_vacio.HeaderText = "Contador Muelle Vacio";
             this.dias_muelle_vacio.Name = "dias_muelle_vacio";
+            this.dias_muelle_vacio.ReadOnly = true;
             // 
             // contador_retraso
             // 
             this.contador_retraso.HeaderText = "Barcos Retrasados";
             this.contador_retraso.Name = "contador_retraso";
+            this.contador_retraso.ReadOnly = true;
             // 
             // barcos_retrasados_ac
             // 
             this.barcos_retrasados_ac.HeaderText = "Barcos Retrasados (AC)";
             this.barcos_retrasados_ac.Name = "barcos_retrasados_ac";
+            this.barcos_retrasados_ac.ReadOnly = true;
             // 
             // costo_descarga
             // 
             this.costo_descarga.HeaderText = "Costo Descarga";
             this.costo_descarga.Name = "costo_descarga";
+            this.costo_descarga.ReadOnly = true;
             // 
             // costo_noche
             // 
             this.costo_noche.HeaderText = "Costo x Noche";
             this.costo_noche.Name = "costo_noche";
+            this.costo_noche.ReadOnly = true;
             // 
             // costo_muelle_vacio
             // 
             this.costo_muelle_vacio.HeaderText = "Costo Muelle Vacio";
             this.costo_muelle_vacio.Name = "costo_muelle_vacio";
+            this.costo_muelle_vacio.ReadOnly = true;
             // 
             // costo_total
             // 
             this.costo_total.HeaderText = "Costo Total";
             this.costo_total.Name = "costo_total";
+            this.costo_total.ReadOnly = true;
             // 
             // costo_total_ac
             // 
             this.costo_total_ac.HeaderText = "Costo Total (AC)";
             this.costo_total_ac.Name = "costo_total_ac";
+            this.costo_total_ac.ReadOnly = true;
             // 
             // costo_por_dia
             // 
             this.costo_por_dia.HeaderText = "Costo Dia Promedio";
             this.costo_por_dia.Name = "costo_por_dia";
+            this.costo_por_dia.ReadOnly = true;
             // 
             // cant_prom_barcos_semana
             // 
             this.cant_prom_barcos_semana.HeaderText = "Promedio Barcos/Semana";
             this.cant_prom_barcos_semana.Name = "cant_prom_barcos_semana";
+            this.cant_prom_barcos_semana.ReadOnly = true;
             // 
             // porc_dias_vacios
             // 
             this.porc_dias_vacios.HeaderText = "% dias vacio";
             this.porc_dias_vacios.Name = "porc_dias_vacios";
+            this.porc_dias_vacios.ReadOnly = true;
             // 
             // porc_ocupacion
             // 
             this.porc_ocupacion.HeaderText = "% de Ocupacion";
             this.porc_ocupacion.Name = "porc_ocupacion";
+            this.porc_ocupacion.ReadOnly = true;
             // 
             // TablaMontecharli
             // 

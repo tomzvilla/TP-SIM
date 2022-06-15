@@ -8,7 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TP_SIM.Clases.Distribuciones;
+using TP_SIM.Runge_Kutta;
 using TP_SIM.TP5.Clases;
+
 
 namespace TP_SIM.TP5
 {
@@ -28,6 +30,13 @@ namespace TP_SIM.TP5
 
         public int columas_a_agregar_AC;
         public List<int> lista_ids;
+
+        // atributos para ataques
+        public decimal A;
+
+  
+
+
         public tablaSimulacion(decimal _iteraciones, decimal _mecanicos, decimal _lavadores, decimal _filas_a_mostrar, decimal _fila_desde, decimal _exp_media_lavado, decimal _exp_media_mantenimiento, decimal _lambda_poisson)
         {
             InitializeComponent();
@@ -85,11 +94,29 @@ namespace TP_SIM.TP5
             {
                 id = 2,
                 nombre = "Fin Lavado"
+            }; 
+            var llegada_ataque= new Evento
+            {
+                id = 3,
+                nombre = "Llegada Ataque"
+            }; 
+            var fin_ataque_llegada = new Evento
+            {
+                id = 4,
+                nombre = "Fin Ataque Clientes"
+            }; 
+            var fin_ataque_servidor = new Evento
+            {
+                id = 5,
+                nombre = "Fin Ataque Servidor"
             };
 
             this.eventos_posibles.Add(llegada);
             this.eventos_posibles.Add(fin_mantenimiento);
             this.eventos_posibles.Add(fin_lavado);
+            this.eventos_posibles.Add(llegada_ataque);
+            this.eventos_posibles.Add(fin_ataque_llegada);
+            this.eventos_posibles.Add(fin_ataque_servidor);
         }
 
         private void cargarEstados()
@@ -164,6 +191,9 @@ namespace TP_SIM.TP5
             var genLlegada = new Random();
             var genMantenimiento = new Random();
             var genLavado = new Random();
+            var genBeta = new Random();
+
+            var genAtaque = new Random();
 
             // Se crea la fila inicial
 
@@ -184,15 +214,21 @@ namespace TP_SIM.TP5
             fila_anterior.t_llegada = (decimal)resultados[1];
             fila_anterior.t_prox_llegada = fila_anterior.reloj + fila_anterior.t_llegada;
             cant_camiones_actual = imprimirFila(fila_anterior, cant_camiones_actual);
+            fila_anterior.t_prox_ataque = 0;
+            fila_anterior.t_fin_ataque_cliente = 0;
+            fila_anterior.t_fin_ataque_servidor = 0;
+
+
             // Se crea las siguientes filas
+            var fila_actual = new VectorEstado();
 
             for (int i = 0; i < this.iteraciones; i++)
             {
-                var fila_actual = new VectorEstado();
+                //var fila_actual = new VectorEstado();
 
                 // Se calcula segun la fila anterior, el proximo evento (el mas cercano)
 
-                var prox_reloj = calcularProximoReloj(fila_anterior.t_fin_mantenimiento, fila_anterior.t_fin_lavado, fila_anterior.t_prox_llegada);
+                var prox_reloj = calcularProximoReloj(fila_anterior.t_fin_mantenimiento, fila_anterior.t_fin_lavado, fila_anterior.t_prox_llegada, fila_anterior.t_prox_ataque, fila_anterior.t_fin_ataque_cliente, fila_anterior.t_fin_ataque_servidor);
                 fila_actual.reloj = prox_reloj[0];
                 fila_actual.evento = eventos_posibles[(int)prox_reloj[1]];
 
@@ -207,6 +243,9 @@ namespace TP_SIM.TP5
                 fila_actual.t_fin_lavado = fila_anterior.t_fin_lavado;
                 fila_actual.porc_ocupacion_lavador = fila_anterior.porc_ocupacion_lavador;
                 fila_actual.porc_ocupacion_mecanico = fila_anterior.porc_ocupacion_mecanico;
+                fila_actual.t_prox_ataque = fila_anterior.t_prox_ataque;
+                fila_actual.t_fin_ataque_cliente = fila_anterior.t_fin_ataque_cliente;
+                fila_actual.t_fin_ataque_servidor = fila_anterior.t_fin_ataque_servidor;
 
                 // Si el evento es una llegada, se calcula la proxima. Caso contrario, arrastra el valor anterior
 
@@ -233,7 +272,6 @@ namespace TP_SIM.TP5
                     fila_actual.t_prox_llegada = fila_actual.reloj + fila_actual.t_llegada;
 
                     // El camion chequea si hay servidores libres, si el id es distinto de 0, hay uno libre
-
                     int servidorEstaLibre = servidorLibre(fila_anterior.servidor_mantenimiento);
                     if (servidorEstaLibre != 0)
                     {
@@ -259,19 +297,30 @@ namespace TP_SIM.TP5
                         camion.estado = estados_posibles[0];
                         camion.diaEntradaMantenimiento = fila_actual.reloj;
                     }
+
+                    // ATAQUES - TP6
+
+                    if(cant_camiones_entran == 80)
+                    {
+                        this.A = fila_actual.reloj;
+                        fila_actual.t_prox_ataque = calcularAtaque(genBeta, this.A, (double)fila_actual.reloj);
+
+                    }
+
                 }
                 else if (fila_actual.evento.id == 1)
                 {
                     // Se suma 1 a camiones matenidos
 
                     cant_camiones_mantenidos++;
+                    var idServidorFinMantenimiento = 1;
 
                     // Si el evento no es una llegada, arrasta la anterior para calcular.
                     fila_actual.t_prox_llegada = fila_anterior.t_prox_llegada;
 
-                   
+                    if (mecanicos > 1)
+                        idServidorFinMantenimiento = obtenerServidorFinAtencion(fila_actual.reloj, fila_anterior.t_fin_mantenimiento);
 
-                    var idServidorFinMantenimiento = obtenerServidorFinAtencion(fila_actual.reloj, fila_anterior.t_fin_mantenimiento); ;
                     fila_actual.t_fin_mantenimiento[idServidorFinMantenimiento - 1] = 0;
 
                     // Se acumula el camiona atendido pro el servidor
@@ -343,12 +392,12 @@ namespace TP_SIM.TP5
                     // Se suma 1 a cantidad de camiones lavados
 
                     cant_camiones_lavados++;
-
+                    var idServidorFinLavado = 1;
                     // Si el evento no es una llegada, arrasta la anterior para calcular.
                     fila_actual.t_prox_llegada = fila_anterior.t_prox_llegada;
-
-                    var idServidorFinLavado = obtenerServidorFinAtencion(fila_actual.reloj, fila_anterior.t_fin_lavado);
-
+                    if(lavadores > 1)
+                        idServidorFinLavado = obtenerServidorFinAtencion(fila_actual.reloj, fila_anterior.t_fin_lavado);
+                    
                     var camion_a_destruir = obtenerCamion(fila_actual.camiones, idServidorFinLavado, 1);
                     fila_actual.servidor_lavado[idServidorFinLavado - 1].contadorAtendidos++;
 
@@ -395,38 +444,64 @@ namespace TP_SIM.TP5
                     
 
                 }
+                else if(fila_actual.evento.id == 3)
+                {
+                    fila_actual.t_prox_ataque = calcularAtaque(genBeta, this.A, (double)fila_actual.reloj);
+                    fila_actual.rnd4 = genAtaque.NextDouble();
+                    fila_actual.ataque = fila_actual.rnd4 < 0.7 ? "Clientes" : "Servidor";
 
-                // Se calculan metricas
+                }
+
+                //Se calculan metricas
                 var calculo_parcial = (double)cant_camiones_atendidos_directo / cant_camiones_entran;
-                fila_actual.porc_camiones_atendidos_sin_esperar = (decimal)calculo_parcial *100 ;
+                fila_actual.porc_camiones_atendidos_sin_esperar = (decimal)calculo_parcial * 100;
 
                 fila_actual.tasa_entrada = cant_camiones_entran / fila_actual.reloj;
-                fila_actual.tasa_salida= cant_camiones_salen / fila_actual.reloj;
+                fila_actual.tasa_salida = cant_camiones_salen / fila_actual.reloj;
 
                 fila_actual.cantPromCamionesEnColaMantenimiento = acum_permanencia_mantenimiento / fila_actual.reloj;
                 fila_actual.cantPromCamionesEnColaLavado = acum_permanencia_lavado / fila_actual.reloj;
 
                 // Se calcula cant de camionesa atendidos por dia por servidor
+                if (mecanicos == 1)
+                {
+                    fila_actual.servidor_mantenimiento[0].prom_atendidos_x_dia = fila_actual.servidor_mantenimiento[0].contadorAtendidos / fila_actual.reloj;
+                    fila_actual.porc_ocupacion_mecanico[0] = (fila_actual.servidor_mantenimiento[0].tiempoOcupado / fila_actual.reloj) * 100;
+                }
+                else
+                {
+                    for (int k = 0; k < fila_actual.servidor_mantenimiento.Count; k++)
+                    {
+                        fila_actual.servidor_mantenimiento[k].prom_atendidos_x_dia = fila_actual.servidor_mantenimiento[k].contadorAtendidos / fila_actual.reloj;
+                    }
+                    // Se calcula % de ocupacion por servidor
+                    for (int k = 0; k < fila_actual.porc_ocupacion_mecanico.Count; k++)
+                    {
+                        fila_actual.porc_ocupacion_mecanico[k] = (fila_actual.servidor_mantenimiento[k].tiempoOcupado / fila_actual.reloj) * 100;
+                    }
 
-                for(int k = 0; k < fila_actual.servidor_mantenimiento.Count; k++)
+                }
+                if (lavadores == 1)
                 {
-                    fila_actual.servidor_mantenimiento[k].prom_atendidos_x_dia = fila_actual.servidor_mantenimiento[k].contadorAtendidos / fila_actual.reloj;
+                    fila_actual.servidor_lavado[0].prom_atendidos_x_dia = fila_actual.servidor_lavado[0].contadorAtendidos / fila_actual.reloj;
+                    fila_actual.porc_ocupacion_lavador[0] = (fila_actual.servidor_lavado[0].tiempoOcupado / fila_actual.reloj) * 100;
+                }
+                else
+                {
+                    for (int k = 0; k < fila_actual.servidor_lavado.Count; k++)
+                    {
+                        fila_actual.servidor_lavado[k].prom_atendidos_x_dia = fila_actual.servidor_lavado[k].contadorAtendidos / fila_actual.reloj;
+                    }
+                    // Se calcula % de ocupacion por servidor
+                    for (int k = 0; k < fila_actual.porc_ocupacion_lavador.Count; k++)
+                    {
+                        fila_actual.porc_ocupacion_lavador[k] = (fila_actual.servidor_lavado[k].tiempoOcupado / fila_actual.reloj) * 100;
+                    }
                 }
 
-                for (int k = 0; k < fila_actual.servidor_lavado.Count; k++)
-                {
-                    fila_actual.servidor_lavado[k].prom_atendidos_x_dia = fila_actual.servidor_lavado[k].contadorAtendidos / fila_actual.reloj;
-                }
 
-                // Se calcula % de ocupacion por servidor
-                for (int k = 0; k < fila_actual.porc_ocupacion_mecanico.Count; k++)
-                {
-                    fila_actual.porc_ocupacion_mecanico[k] = (fila_actual.servidor_mantenimiento[k].tiempoOcupado / fila_actual.reloj) * 100;
-                }
-                for (int k = 0; k < fila_actual.porc_ocupacion_lavador.Count; k++)
-                {
-                    fila_actual.porc_ocupacion_lavador[k] = (fila_actual.servidor_lavado[k].tiempoOcupado / fila_actual.reloj) * 100;
-                }
+
+
 
                 if (cant_camiones_mantenidos != 0)
                     fila_actual.tiempoPermanenciaColaMantenimiento = acum_permanencia_mantenimiento / cant_camiones_mantenidos;
@@ -438,13 +513,23 @@ namespace TP_SIM.TP5
                 else
                     fila_actual.tiempoPermanenciaColaLavado = 0;
 
-                // Se cambia el orden de las filas
+                //Se cambia el orden de las filas
                 if ((i >= this.fila_desde - 1 && i < this.fila_desde + this.filas_a_mostrar - 1) || (i == this.iteraciones - 1 && this.iteraciones != this.fila_desde + this.filas_a_mostrar - 1))
                     cant_camiones_actual = imprimirFila(fila_actual, cant_camiones_actual);
                 fila_anterior = fila_actual;
 
 
             }
+        }
+
+        private decimal calcularAtaque(Random genBeta, decimal A, double reloj)
+        {
+            var beta = generarRNDUniforme(genBeta);
+            var rk_ataque = new rk_llegada_ataque(beta, (double)A, reloj);
+            rk_ataque.Show();
+            var proximo_ataque = rk_ataque.valorBuscado;
+            return (decimal)proximo_ataque;
+
         }
 
         private int imprimirFila(VectorEstado filaImprimir, int cant_camiones_actual)
@@ -582,11 +667,9 @@ namespace TP_SIM.TP5
             return 0;
         }
 
-        private List<decimal> calcularProximoReloj(List<decimal> t_fin_mantenimiento, List<decimal> t_fin_lavado, decimal t_prox_llegada)
+        private List<decimal> calcularProximoReloj(List<decimal> t_fin_mantenimiento, List<decimal> t_fin_lavado, decimal t_prox_llegada, decimal proximo_ataque, decimal fin_ataque_cliente, decimal fin_ataque_servidor)
         {
             var lista = new List<decimal>(); 
-            decimal minimo = t_prox_llegada;
-            int index = 0;
             decimal min_lavado = 1000000000000000000;
             decimal min_mantenimiento = 10000000000000000000;
 
@@ -606,18 +689,25 @@ namespace TP_SIM.TP5
                 }
             }
 
-            if (min_mantenimiento < minimo)
-            {
-                minimo = min_mantenimiento;
-                index = 1;
-            }
-            if(min_lavado < minimo)
-            {
-                minimo = min_lavado;
-                index = 2;
-            }
-            lista.Add(minimo);
-            lista.Add(index);
+            var diccionario = new Dictionary<int, decimal>();
+            if(min_lavado != 0)
+                diccionario.Add(2, min_lavado);
+            if (min_mantenimiento != 0)
+                diccionario.Add(1, min_mantenimiento);
+            if (proximo_ataque != 0)
+                diccionario.Add(3, proximo_ataque);
+            if (fin_ataque_cliente != 0)
+                diccionario.Add(5, fin_ataque_cliente);
+            if (fin_ataque_servidor != 0)
+                diccionario.Add(6, fin_ataque_servidor);
+
+            diccionario.Add(0, t_prox_llegada);
+            
+            var sortedDict = from entry in diccionario orderby entry.Value ascending select entry;
+
+            var resultado = sortedDict.ElementAt(0);
+            lista.Add(resultado.Value);
+            lista.Add(resultado.Key);
             return lista;
 
         }
@@ -682,6 +772,13 @@ namespace TP_SIM.TP5
             lista_resultado.Add(valor);
             return lista_resultado;
 
+        }
+
+        public double generarRNDUniforme(Random generador)
+        {
+            var rnd = generador.NextDouble();
+            double valor = 0 + rnd * (1);
+            return valor;
         }
 
         private void dgv_colas_ColumnAdded(object sender, DataGridViewColumnEventArgs e)

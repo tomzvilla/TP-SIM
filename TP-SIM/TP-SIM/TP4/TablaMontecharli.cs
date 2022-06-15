@@ -55,5 +55,10 @@ namespace TP_SIM.TP4
                 dgv_montecarlo.Rows.Add(fila);
             }
         }
+
+        private void dgv_montecarlo_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

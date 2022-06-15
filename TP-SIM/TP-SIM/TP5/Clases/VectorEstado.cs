@@ -33,5 +33,14 @@ namespace TP_SIM.TP5.Clases
         public List<decimal> porc_ocupacion_mecanico { get; set; }
         public List<decimal> porc_ocupacion_lavador { get; set; }
         public decimal porc_camiones_atendidos_sin_esperar { get; set; }
+
+        public decimal t_prox_ataque { get; set; }
+
+        public double rnd4 { get; set; }
+
+        public string ataque { get; set; }
+
+        public decimal t_fin_ataque_cliente { get; set; }
+        public decimal t_fin_ataque_servidor { get; set; }
     }
 }
