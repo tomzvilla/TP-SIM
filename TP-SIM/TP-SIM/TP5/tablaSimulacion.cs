@@ -33,8 +33,12 @@ namespace TP_SIM.TP5
 
         // atributos para ataques
         public decimal A;
+        public Camion camion_a_suspender = new Camion();
+        public bool ataque_llegada = false;
+        public bool primer_ataque = false;
+        public bool estaba_ocupado = false;
 
-  
+
 
 
         public tablaSimulacion(decimal _iteraciones, decimal _mecanicos, decimal _lavadores, decimal _filas_a_mostrar, decimal _fila_desde, decimal _exp_media_lavado, decimal _exp_media_mantenimiento, decimal _lambda_poisson)
@@ -51,6 +55,7 @@ namespace TP_SIM.TP5
             exp_llegada = 1 / _lambda_poisson;
             estados_posibles = new List<Estado>();
             eventos_posibles = new List<Evento>();
+
 
             columas_a_agregar_AC = 0;
             lista_ids = new List<int>();
@@ -157,6 +162,16 @@ namespace TP_SIM.TP5
                 id = 6,
                 nombre = "/////////"
             };
+            var SA = new Estado()
+            {
+                id = 7,
+                nombre = "Siendo Atacado"
+            };
+            var MS = new Estado()
+            {
+                id = 8,
+                nombre = "Mantenimiento Suspendido"
+            };
 
             this.estados_posibles.Add(EM);
             this.estados_posibles.Add(SM);
@@ -165,10 +180,13 @@ namespace TP_SIM.TP5
             this.estados_posibles.Add(L);
             this.estados_posibles.Add(O);
             this.estados_posibles.Add(destruccion);
+            this.estados_posibles.Add(SA);
+            this.estados_posibles.Add(MS);
         }
 
         private void simular()
         {
+
             int cant_camiones_actual = 0;
 
             // Contadores y acumuladores para metricas
@@ -206,7 +224,9 @@ namespace TP_SIM.TP5
             fila_anterior.t_fin_lavado = new List<decimal>(new decimal[(int)lavadores]);
             fila_anterior.cola_lavado = new List<Camion>();
             fila_anterior.cola_mantenimiento = new List<Camion>();
+            fila_anterior.cola_llegada = new List<Camion>();
             fila_anterior.camiones = new List<Camion>();
+            fila_anterior.ataque = "--";
             fila_anterior.porc_ocupacion_lavador = new List<decimal>(new decimal[(int)lavadores]);
             fila_anterior.porc_ocupacion_mecanico = new List<decimal>(new decimal[(int)mecanicos]);
             var resultados = generarRNDExponencial(genLlegada, (double)this.exp_llegada);
@@ -224,6 +244,7 @@ namespace TP_SIM.TP5
 
             for (int i = 0; i < this.iteraciones; i++)
             {
+
                 //var fila_actual = new VectorEstado();
 
                 // Se calcula segun la fila anterior, el proximo evento (el mas cercano)
@@ -239,6 +260,7 @@ namespace TP_SIM.TP5
                 fila_actual.camiones = fila_anterior.camiones;
                 fila_actual.cola_mantenimiento = fila_anterior.cola_mantenimiento;
                 fila_actual.cola_lavado = fila_anterior.cola_lavado;
+                fila_actual.cola_llegada = fila_anterior.cola_llegada;
                 fila_actual.t_fin_mantenimiento = fila_anterior.t_fin_mantenimiento;
                 fila_actual.t_fin_lavado = fila_anterior.t_fin_lavado;
                 fila_actual.porc_ocupacion_lavador = fila_anterior.porc_ocupacion_lavador;
@@ -246,6 +268,7 @@ namespace TP_SIM.TP5
                 fila_actual.t_prox_ataque = fila_anterior.t_prox_ataque;
                 fila_actual.t_fin_ataque_cliente = fila_anterior.t_fin_ataque_cliente;
                 fila_actual.t_fin_ataque_servidor = fila_anterior.t_fin_ataque_servidor;
+                fila_actual.t_remanente_mantenimiento = fila_anterior.t_remanente_mantenimiento;
 
                 // Si el evento es una llegada, se calcula la proxima. Caso contrario, arrastra el valor anterior
 
@@ -258,55 +281,65 @@ namespace TP_SIM.TP5
                         servidor_atencion = null
                     };
                     contador_id += 1;
-                    fila_actual.camiones.Add(camion);
-
-                    // Se calculan metricas
-
-                    cant_camiones_entran++;
 
                     // Se calcula la proxima llegada
-
                     var proxLlegada = generarRNDExponencial(genLlegada, (double)this.exp_llegada);
                     fila_actual.rnd1 = proxLlegada[0];
                     fila_actual.t_llegada = (decimal)proxLlegada[1];
                     fila_actual.t_prox_llegada = fila_actual.reloj + fila_actual.t_llegada;
 
-                    // El camion chequea si hay servidores libres, si el id es distinto de 0, hay uno libre
-                    int servidorEstaLibre = servidorLibre(fila_anterior.servidor_mantenimiento);
-                    if (servidorEstaLibre != 0)
+                    if (ataque_llegada)
                     {
-                        cant_camiones_atendidos_directo++;
-                        // Se cambia el estado del camion a SM, y el estado del servidor a ocupado
-                        // Se asigna el servidor al camion
-                        camion.estado = estados_posibles[1];
-                        camion.servidor_atencion = fila_actual.servidor_mantenimiento[servidorEstaLibre - 1];
-
-                        fila_actual.servidor_mantenimiento[servidorEstaLibre - 1].estado = estados_posibles[5];
-                        fila_actual.servidor_mantenimiento[servidorEstaLibre - 1].inicioTiempoCupacion = fila_actual.reloj;
-                        // Se calcula el tiempo de mantenimiento, y el proximo fin de mantenimiento (hay un tiempo por cada servidor)
-
-                        var finMantenimiento = generarRNDExponencial(genMantenimiento, (double)this.exp_media_mantenimiento);
-                        fila_actual.rnd2 = (decimal)finMantenimiento[0];
-                        fila_actual.t_mantenimiento = (decimal)finMantenimiento[1];
-                        fila_actual.t_fin_mantenimiento[servidorEstaLibre - 1] = fila_actual.reloj + fila_actual.t_mantenimiento;
+                        fila_actual.cola_llegada.Add(camion);
                     }
                     else
                     {
-                        // Si no hay servidores libres, los añade a la cola
-                        fila_actual.cola_mantenimiento.Add(camion);
-                        camion.estado = estados_posibles[0];
-                        camion.diaEntradaMantenimiento = fila_actual.reloj;
+                        
+                        fila_actual.camiones.Add(camion);
+
+                        // Se calculan metricas
+
+                        cant_camiones_entran++;
+
+                        // El camion chequea si hay servidores libres, si el id es distinto de 0, hay uno libre
+                        int servidorEstaLibre = servidorLibre(fila_anterior.servidor_mantenimiento);
+                        if (servidorEstaLibre != 0)
+                        {
+                            cant_camiones_atendidos_directo++;
+                            // Se cambia el estado del camion a SM, y el estado del servidor a ocupado
+                            // Se asigna el servidor al camion
+                            camion.estado = estados_posibles[1];
+                            camion.servidor_atencion = fila_actual.servidor_mantenimiento[servidorEstaLibre - 1];
+
+                            fila_actual.servidor_mantenimiento[servidorEstaLibre - 1].estado = estados_posibles[5];
+                            fila_actual.servidor_mantenimiento[servidorEstaLibre - 1].inicioTiempoCupacion = fila_actual.reloj;
+                            // Se calcula el tiempo de mantenimiento, y el proximo fin de mantenimiento (hay un tiempo por cada servidor)
+
+                            var finMantenimiento = generarRNDExponencial(genMantenimiento, (double)this.exp_media_mantenimiento);
+                            fila_actual.rnd2 = (decimal)finMantenimiento[0];
+                            fila_actual.t_mantenimiento = (decimal)finMantenimiento[1];
+                            fila_actual.t_fin_mantenimiento[servidorEstaLibre - 1] = fila_actual.reloj + fila_actual.t_mantenimiento;
+
+                        }
+                        else
+                        {
+                            // Si no hay servidores libres, los añade a la cola
+                            fila_actual.cola_mantenimiento.Add(camion);
+                            camion.estado = estados_posibles[0];
+                            camion.diaEntradaMantenimiento = fila_actual.reloj;
+                        }
+
+                        // ATAQUES - TP6
+
+                        if (cant_camiones_entran == 80 && primer_ataque == false)
+                        {
+                            this.A = fila_actual.reloj;
+                            this.primer_ataque = true;
+                            fila_actual.t_prox_ataque = fila_actual.reloj + calcularAtaque(genBeta, this.A, (double)fila_actual.reloj);
+
+                        }
                     }
-
-                    // ATAQUES - TP6
-
-                    if(cant_camiones_entran == 80)
-                    {
-                        this.A = fila_actual.reloj;
-                        fila_actual.t_prox_ataque = calcularAtaque(genBeta, this.A, (double)fila_actual.reloj);
-
-                    }
-
+                
                 }
                 else if (fila_actual.evento.id == 1)
                 {
@@ -351,11 +384,12 @@ namespace TP_SIM.TP5
                         fila_actual.t_fin_mantenimiento[idServidorFinMantenimiento - 1] = fila_actual.reloj + fila_actual.t_mantenimiento;
                         fila_actual.cola_mantenimiento.RemoveAt(0);
 
+                        
                     }
                     else
                     {
                         fila_actual.servidor_mantenimiento[idServidorFinMantenimiento - 1].estado = estados_posibles[4];
-                        fila_actual.servidor_mantenimiento[idServidorFinMantenimiento - 1].tiempoOcupado += fila_actual.reloj - fila_actual.servidor_mantenimiento[idServidorFinMantenimiento - 1].inicioTiempoCupacion;
+                        
 
                     }
                     
@@ -438,7 +472,7 @@ namespace TP_SIM.TP5
                     else
                     {
                         fila_actual.servidor_lavado[idServidorFinLavado - 1].estado = estados_posibles[4];
-                        fila_actual.servidor_lavado[idServidorFinLavado - 1].tiempoOcupado += fila_actual.reloj - fila_actual.servidor_lavado[idServidorFinLavado - 1].inicioTiempoCupacion;
+                        
                     }
 
                     
@@ -446,17 +480,147 @@ namespace TP_SIM.TP5
                 }
                 else if(fila_actual.evento.id == 3)
                 {
-                    fila_actual.t_prox_ataque = calcularAtaque(genBeta, this.A, (double)fila_actual.reloj);
+                    fila_actual.t_prox_ataque = 0;
                     fila_actual.rnd4 = genAtaque.NextDouble();
                     fila_actual.ataque = fila_actual.rnd4 < 0.7 ? "Clientes" : "Servidor";
                     if (fila_actual.ataque == "Clientes")
                     {
                         fila_actual.t_fin_ataque_cliente = calcularTiempoAtaqueLlegada(fila_actual.reloj, 0) + fila_actual.reloj;
+                        this.ataque_llegada = true;
+
+                        // Se pausan las llegadas, en fin ataque cliente se reanudan
+
+                        
+
                     }
                     else {
                         fila_actual.t_fin_ataque_servidor = calcularTiempoAtaqueServidor(fila_actual.reloj, 0) + fila_actual.reloj;
+                        if(!(fila_actual.servidor_mantenimiento[0].estado == estados_posibles[4]))
+                        {
+                            this.estaba_ocupado = true;
+                            fila_actual.t_remanente_mantenimiento = fila_actual.t_fin_mantenimiento[0] - fila_actual.reloj;
+                            camion_a_suspender = obtenerCamion(fila_actual.camiones, 1, 0);
+                            camion_a_suspender.estado = estados_posibles[8];
+                            fila_actual.t_fin_mantenimiento[0] = 0;
+                        }
+                        else
+                        {
+                            fila_actual.t_remanente_mantenimiento = 0;
+                        }
+                        fila_actual.servidor_mantenimiento[0].estado = estados_posibles[7];
+                        
                     }
 
+                }
+                else if(fila_actual.evento.id == 4)
+                {
+                    // Se calcula el proximo ataque
+                    fila_actual.t_prox_ataque = fila_actual.reloj + calcularAtaque(genBeta, this.A, (double)fila_actual.reloj);
+                    fila_actual.t_fin_ataque_cliente = 0;
+                    fila_actual.rnd4 = 0;
+                    fila_actual.ataque = "--";
+                    // Se reanudan las llegadas
+                    this.ataque_llegada = false;
+                    // Pasar camiones a cola mantenimiento
+                    cant_camiones_entran += fila_actual.cola_llegada.Count;
+                    foreach(Camion camion in fila_actual.cola_llegada)
+                    {
+
+                        // El camion chequea si hay servidores libres, si el id es distinto de 0, hay uno libre
+                        int servidorEstaLibre = servidorLibre(fila_anterior.servidor_mantenimiento);
+                        if (servidorEstaLibre != 0)
+                        {
+                            cant_camiones_atendidos_directo++;
+                            // Se cambia el estado del camion a SM, y el estado del servidor a ocupado
+                            // Se asigna el servidor al camion
+                            camion.estado = estados_posibles[1];
+                            camion.servidor_atencion = fila_actual.servidor_mantenimiento[servidorEstaLibre - 1];
+
+                            fila_actual.servidor_mantenimiento[servidorEstaLibre - 1].estado = estados_posibles[5];
+                            fila_actual.servidor_mantenimiento[servidorEstaLibre - 1].inicioTiempoCupacion = fila_actual.reloj;
+                            // Se calcula el tiempo de mantenimiento, y el proximo fin de mantenimiento (hay un tiempo por cada servidor)
+
+                            var finMantenimiento = generarRNDExponencial(genMantenimiento, (double)this.exp_media_mantenimiento);
+                            fila_actual.rnd2 = (decimal)finMantenimiento[0];
+                            fila_actual.t_mantenimiento = (decimal)finMantenimiento[1];
+                            fila_actual.t_fin_mantenimiento[servidorEstaLibre - 1] = fila_actual.reloj + fila_actual.t_mantenimiento;
+
+                        }
+                        else
+                        {
+                            // Si no hay servidores libres, los añade a la cola
+                            fila_actual.cola_mantenimiento.Add(camion);
+                            camion.estado = estados_posibles[0];
+                            camion.diaEntradaMantenimiento = fila_actual.reloj;
+                        }
+                    }
+                    fila_actual.cola_llegada = new List<Camion>();
+                }
+                else if (fila_actual.evento.id == 5)
+                {
+                    // Se calcula el proximo ataque
+                    fila_actual.t_prox_ataque = fila_actual.reloj + calcularAtaque(genBeta, this.A, (double)fila_actual.reloj);
+                    fila_actual.t_fin_ataque_servidor = 0;
+                    fila_actual.rnd4 = 0;
+                    fila_actual.ataque = "--";
+                    if (estaba_ocupado)
+                    {
+                        fila_actual.t_fin_mantenimiento[0] = fila_actual.reloj + fila_actual.t_remanente_mantenimiento;
+                        camion_a_suspender.estado = estados_posibles[1];
+                        fila_actual.servidor_mantenimiento[0].estado = estados_posibles[5];
+                    }
+                    else
+                    {
+                        if (fila_actual.cola_mantenimiento.Count != 0)
+                        {
+                            Camion camion_a_mantener = fila_actual.cola_mantenimiento[0];
+                            // Se procesa el proximo camion
+                            // Se cambia el estado del camion a SM, y el estado del servidor sigue ocupado
+                            // Se asigna el servidor al camion
+                            camion_a_mantener.estado = estados_posibles[1];
+                            camion_a_mantener.servidor_atencion = fila_actual.servidor_mantenimiento[0];
+
+                            // Se calculan Metricas
+
+                            acum_permanencia_mantenimiento += fila_actual.reloj - camion_a_mantener.diaEntradaMantenimiento;
+
+                            // Se calcula el tiempo de mantenimiento, y el proximo fin de mantenimiento (hay un tiempo por cada servidor)
+
+                            var finMantenimiento = generarRNDExponencial(genMantenimiento, (double)this.exp_media_mantenimiento);
+                            fila_actual.rnd2 = (decimal)finMantenimiento[0];
+                            fila_actual.t_mantenimiento = (decimal)finMantenimiento[1];
+                            fila_actual.t_fin_mantenimiento[0] = fila_actual.reloj + fila_actual.t_mantenimiento;
+                            fila_actual.cola_mantenimiento.RemoveAt(0);
+
+                        }
+                        else
+                        {
+                            fila_actual.servidor_mantenimiento[0].estado = estados_posibles[4];
+
+
+                        }
+                    }
+                    fila_actual.t_remanente_mantenimiento = 0;
+
+
+                }
+
+                // Se acumula el tiempo ocupado
+
+                for(int k = 0; k < fila_actual.servidor_mantenimiento.Count; k++)
+                {
+                    if(fila_anterior.servidor_mantenimiento[k].estado == estados_posibles[5])
+                    {
+                        fila_actual.servidor_mantenimiento[k].tiempoOcupado += fila_actual.reloj - fila_anterior.reloj;
+                    }
+                }
+
+                for (int k = 0; k < fila_actual.servidor_lavado.Count; k++)
+                {
+                    if (fila_anterior.servidor_lavado[k].estado == estados_posibles[5])
+                    {
+                        fila_actual.servidor_lavado[k].tiempoOcupado += fila_actual.reloj - fila_anterior.reloj;
+                    }
                 }
 
                 //Se calculan metricas
@@ -470,45 +634,27 @@ namespace TP_SIM.TP5
                 fila_actual.cantPromCamionesEnColaLavado = acum_permanencia_lavado / fila_actual.reloj;
 
                 // Se calcula cant de camionesa atendidos por dia por servidor
-                if (mecanicos == 1)
+                
+                for (int k = 0; k < fila_actual.servidor_mantenimiento.Count; k++)
                 {
-                    fila_actual.servidor_mantenimiento[0].prom_atendidos_x_dia = fila_actual.servidor_mantenimiento[0].contadorAtendidos / fila_actual.reloj;
-                    fila_actual.porc_ocupacion_mecanico[0] = (fila_actual.servidor_mantenimiento[0].tiempoOcupado / fila_actual.reloj) * 100;
+                    fila_actual.servidor_mantenimiento[k].prom_atendidos_x_dia = fila_actual.servidor_mantenimiento[k].contadorAtendidos / fila_actual.reloj;
                 }
-                else
+                // Se calcula % de ocupacion por servidor
+                for (int k = 0; k < fila_actual.porc_ocupacion_mecanico.Count; k++)
                 {
-                    for (int k = 0; k < fila_actual.servidor_mantenimiento.Count; k++)
-                    {
-                        fila_actual.servidor_mantenimiento[k].prom_atendidos_x_dia = fila_actual.servidor_mantenimiento[k].contadorAtendidos / fila_actual.reloj;
-                    }
-                    // Se calcula % de ocupacion por servidor
-                    for (int k = 0; k < fila_actual.porc_ocupacion_mecanico.Count; k++)
-                    {
-                        fila_actual.porc_ocupacion_mecanico[k] = (fila_actual.servidor_mantenimiento[k].tiempoOcupado / fila_actual.reloj) * 100;
-                    }
-
-                }
-                if (lavadores == 1)
-                {
-                    fila_actual.servidor_lavado[0].prom_atendidos_x_dia = fila_actual.servidor_lavado[0].contadorAtendidos / fila_actual.reloj;
-                    fila_actual.porc_ocupacion_lavador[0] = (fila_actual.servidor_lavado[0].tiempoOcupado / fila_actual.reloj) * 100;
-                }
-                else
-                {
-                    for (int k = 0; k < fila_actual.servidor_lavado.Count; k++)
-                    {
-                        fila_actual.servidor_lavado[k].prom_atendidos_x_dia = fila_actual.servidor_lavado[k].contadorAtendidos / fila_actual.reloj;
-                    }
-                    // Se calcula % de ocupacion por servidor
-                    for (int k = 0; k < fila_actual.porc_ocupacion_lavador.Count; k++)
-                    {
-                        fila_actual.porc_ocupacion_lavador[k] = (fila_actual.servidor_lavado[k].tiempoOcupado / fila_actual.reloj) * 100;
-                    }
+                    fila_actual.porc_ocupacion_mecanico[k] = (fila_actual.servidor_mantenimiento[k].tiempoOcupado / fila_actual.reloj) * 100;
                 }
 
-
-
-
+                for (int k = 0; k < fila_actual.servidor_lavado.Count; k++)
+                {
+                    fila_actual.servidor_lavado[k].prom_atendidos_x_dia = fila_actual.servidor_lavado[k].contadorAtendidos / fila_actual.reloj;
+                }
+                // Se calcula % de ocupacion por servidor
+                for (int k = 0; k < fila_actual.porc_ocupacion_lavador.Count; k++)
+                {
+                    fila_actual.porc_ocupacion_lavador[k] = (fila_actual.servidor_lavado[k].tiempoOcupado / fila_actual.reloj) * 100;
+                }
+             
 
                 if (cant_camiones_mantenidos != 0)
                     fila_actual.tiempoPermanenciaColaMantenimiento = acum_permanencia_mantenimiento / cant_camiones_mantenidos;
@@ -556,19 +702,26 @@ namespace TP_SIM.TP5
 
         private int imprimirFila(VectorEstado filaImprimir, int cant_camiones_actual)
         {
-            int cant_columnas = 19 + filaImprimir.t_fin_mantenimiento.Count + filaImprimir.servidor_mantenimiento.Count * 3 + filaImprimir.t_fin_lavado.Count + filaImprimir.servidor_lavado.Count * 3 + filaImprimir.camiones.Count;
+            int cant_columnas = 26 + filaImprimir.t_fin_mantenimiento.Count + filaImprimir.servidor_mantenimiento.Count * 3 + filaImprimir.t_fin_lavado.Count + filaImprimir.servidor_lavado.Count * 3 + filaImprimir.camiones.Count;
             var fila = new string[cant_columnas];
-            int puntero = 7;
+            int puntero = 14;
 
             fila[0] = filaImprimir.reloj.ToString("0.00");
             fila[1] = filaImprimir.evento.nombre;
             fila[2] = filaImprimir.rnd1.ToString("0.00");
             fila[3] = filaImprimir.t_llegada.ToString("0.00");
             fila[4] = filaImprimir.t_prox_llegada.ToString("0.00");
-            fila[5] = filaImprimir.rnd2.ToString("0.00");
-            fila[6] = filaImprimir.t_mantenimiento.ToString("0.00");
+            fila[5] = filaImprimir.cola_llegada.Count.ToString();
+            fila[6] = filaImprimir.t_prox_ataque.ToString("0.00");
+            fila[7] = filaImprimir.rnd4.ToString("0.00");
+            fila[8] = filaImprimir.ataque.ToString();
+            fila[9] = filaImprimir.t_fin_ataque_cliente.ToString("0.00");
+            fila[10] = filaImprimir.t_fin_ataque_servidor.ToString("0.00");
+            fila[11] = filaImprimir.rnd2.ToString("0.00");
+            fila[12] = filaImprimir.t_mantenimiento.ToString("0.00");
+            fila[13] = filaImprimir.t_remanente_mantenimiento.ToString("0.00");
             int contador = 0;
-            for (int i = 7; i <= filaImprimir.t_fin_mantenimiento.Count + 6; i++)
+            for (int i = 14; i <= filaImprimir.t_fin_mantenimiento.Count + 13; i++)
             {
                 fila[i] = filaImprimir.t_fin_mantenimiento[contador].ToString("0.00");
                 contador += 1;
@@ -722,8 +875,8 @@ namespace TP_SIM.TP5
                 diccionario.Add(4, fin_ataque_cliente);
             if (fin_ataque_servidor != 0)
                 diccionario.Add(5, fin_ataque_servidor);
-
-            diccionario.Add(0, t_prox_llegada);
+            if (t_prox_llegada != 0)
+                diccionario.Add(0, t_prox_llegada);
             
             var sortedDict = from entry in diccionario orderby entry.Value ascending select entry;
 

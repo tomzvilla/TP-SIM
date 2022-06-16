@@ -16,6 +16,7 @@ namespace TP_SIM.TP5.Clases
         public decimal rnd2 { get; set; }
         public decimal t_mantenimiento { get; set; }
         public List<decimal> t_fin_mantenimiento { get; set; }
+        public decimal t_remanente_mantenimiento { get; set; }
         public List<Camion> cola_mantenimiento { get; set; }
         public List<Servidor> servidor_mantenimiento { get; set; }
         public decimal rnd3 { get; set; }
@@ -38,9 +39,11 @@ namespace TP_SIM.TP5.Clases
 
         public double rnd4 { get; set; }
 
-        public string ataque { get; set; }
+        public string ataque { get; set; } = "--";
 
         public decimal t_fin_ataque_cliente { get; set; }
         public decimal t_fin_ataque_servidor { get; set; }
+
+        public List<Camion> cola_llegada { get; set; }
     }
 }

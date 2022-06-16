@@ -17,13 +17,14 @@ namespace TP_SIM.Runge_Kutta
         public double y0;
         public double h;
         public double valorBuscado;
+        public bool flag;
         public rk_tiempo_ataque_llegada(decimal reloj , decimal t0)
         {
             InitializeComponent();
             this.y0 = (double)reloj;
             this.x0 = (double)t0;
             this.reloj = (double)reloj;
-            this.h = 0.01;
+            this.h = 0.1;
             calcularRK();
         }
 
@@ -31,7 +32,7 @@ namespace TP_SIM.Runge_Kutta
         {
 
             txt_iteracion.Text = this.reloj.ToString("0.00");
-
+            double diferencia;
             var fila_anterior = new fila_rk();
             fila_anterior.xi1 = this.x0;
             fila_anterior.yi1 = this.y0;
@@ -41,6 +42,7 @@ namespace TP_SIM.Runge_Kutta
             var fila_actual = new fila_rk();
             do
             {
+               
                 fila_actual.x = fila_anterior.xi1;
                 fila_actual.y = fila_anterior.yi1;
                 fila_actual.dy_dx = -((fila_actual.y / (double)(0.8)) * Math.Pow(fila_actual.x, 2)) - fila_actual.y;
@@ -61,8 +63,11 @@ namespace TP_SIM.Runge_Kutta
                 fila_actual.yi1 = fila_actual.y + ((double)(this.h / 6) * (fila_actual.dy_dx + 2 * fila_actual.K2 + 2 * fila_actual.K3 + fila_actual.K4));
 
                 imprimirFila(fila_actual);
+
+                diferencia = Math.Abs(fila_actual.yi1 - fila_actual.y);
+
                 fila_anterior = fila_actual;
-            } while (Math.Abs(fila_actual.y - fila_anterior.y) >= 1);
+            } while (diferencia >= 1);
             var t = fila_anterior.x;
             this.valorBuscado = t * 5;
         }

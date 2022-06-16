@@ -68,3 +68,5 @@ C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM
 C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Runge_Kutta.rk_llegada_ataque.resources
 C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Runge_Kutta.rk_tiempo_ataque_llegada.resources
 C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Runge_Kutta.rk_tiempo_ataque_servidor.resources
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Runge_Kutta.rk_tiempo_ataque_llegada.resources
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Runge_Kutta.rk_tiempo_ataque_servidor.resources
