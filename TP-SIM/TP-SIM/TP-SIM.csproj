@@ -154,6 +154,18 @@
     <Compile Include="Runge Kutta\rk_llegada_ataque.Designer.cs">
       <DependentUpon>rk_llegada_ataque.cs</DependentUpon>
     </Compile>
+    <Compile Include="Runge Kutta\rk_tiempo_ataque_llegada.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Runge Kutta\rk_tiempo_ataque_llegada.Designer.cs">
+      <DependentUpon>rk_tiempo_ataque_llegada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Runge Kutta\rk_tiempo_ataque_servidor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Runge Kutta\rk_tiempo_ataque_servidor.Designer.cs">
+      <DependentUpon>rk_tiempo_ataque_servidor.cs</DependentUpon>
+    </Compile>
     <Compile Include="TP4\TablaMontecharli.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -225,6 +237,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Runge Kutta\rk_llegada_ataque.resx">
       <DependentUpon>rk_llegada_ataque.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Runge Kutta\rk_tiempo_ataque_llegada.resx">
+      <DependentUpon>rk_tiempo_ataque_llegada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Runge Kutta\rk_tiempo_ataque_servidor.resx">
+      <DependentUpon>rk_tiempo_ataque_servidor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TP4\TablaMontecharli.resx">
       <DependentUpon>TablaMontecharli.cs</DependentUpon>

@@ -449,6 +449,13 @@ namespace TP_SIM.TP5
                     fila_actual.t_prox_ataque = calcularAtaque(genBeta, this.A, (double)fila_actual.reloj);
                     fila_actual.rnd4 = genAtaque.NextDouble();
                     fila_actual.ataque = fila_actual.rnd4 < 0.7 ? "Clientes" : "Servidor";
+                    if (fila_actual.ataque == "Clientes")
+                    {
+                        fila_actual.t_fin_ataque_cliente = calcularTiempoAtaqueLlegada(fila_actual.reloj, 0) + fila_actual.reloj;
+                    }
+                    else {
+                        fila_actual.t_fin_ataque_servidor = calcularTiempoAtaqueServidor(fila_actual.reloj, 0) + fila_actual.reloj;
+                    }
 
                 }
 
@@ -530,6 +537,21 @@ namespace TP_SIM.TP5
             var proximo_ataque = rk_ataque.valorBuscado;
             return (decimal)proximo_ataque;
 
+        }
+
+        private decimal calcularTiempoAtaqueLlegada(decimal reloj, decimal t0) {
+            var rk_tiempo_ataque_llegada = new rk_tiempo_ataque_llegada(reloj, t0);
+            rk_tiempo_ataque_llegada.Show();
+            var tiempo_ataque_llegada = rk_tiempo_ataque_llegada.valorBuscado;
+            return (decimal)tiempo_ataque_llegada;
+        }
+
+        private decimal calcularTiempoAtaqueServidor(decimal reloj, decimal t0)
+        {
+            var rk_tiempo_ataque_servidor = new rk_tiempo_ataque_servidor(reloj, t0);
+            rk_tiempo_ataque_servidor.Show();
+            var tiempo_ataque_servidor = rk_tiempo_ataque_servidor.valorBuscado;
+            return (decimal)tiempo_ataque_servidor;
         }
 
         private int imprimirFila(VectorEstado filaImprimir, int cant_camiones_actual)
@@ -697,9 +719,9 @@ namespace TP_SIM.TP5
             if (proximo_ataque != 0)
                 diccionario.Add(3, proximo_ataque);
             if (fin_ataque_cliente != 0)
-                diccionario.Add(5, fin_ataque_cliente);
+                diccionario.Add(4, fin_ataque_cliente);
             if (fin_ataque_servidor != 0)
-                diccionario.Add(6, fin_ataque_servidor);
+                diccionario.Add(5, fin_ataque_servidor);
 
             diccionario.Add(0, t_prox_llegada);
             

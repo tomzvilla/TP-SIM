@@ -1,7 +1,7 @@
 ﻿
 namespace TP_SIM.Runge_Kutta
 {
-    partial class rk_llegada_ataque
+    partial class rk_tiempo_ataque_servidor
     {
         /// <summary>
         /// Required designer variable.
@@ -39,22 +39,18 @@ namespace TP_SIM.Runge_Kutta
             this.K4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.xi1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.yi1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txt_a = new System.Windows.Forms.TextBox();
-            this.txt_beta = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_rk)).BeginInit();
             this.SuspendLayout();
             // 
             // txt_iteracion
             // 
             this.txt_iteracion.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_iteracion.Location = new System.Drawing.Point(16, 15);
-            this.txt_iteracion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txt_iteracion.Location = new System.Drawing.Point(13, 13);
+            this.txt_iteracion.Margin = new System.Windows.Forms.Padding(4);
             this.txt_iteracion.Name = "txt_iteracion";
             this.txt_iteracion.ReadOnly = true;
             this.txt_iteracion.Size = new System.Drawing.Size(301, 37);
-            this.txt_iteracion.TabIndex = 3;
+            this.txt_iteracion.TabIndex = 6;
             // 
             // dgv_rk
             // 
@@ -70,12 +66,12 @@ namespace TP_SIM.Runge_Kutta
             this.K4,
             this.xi1,
             this.yi1});
-            this.dgv_rk.Location = new System.Drawing.Point(16, 69);
-            this.dgv_rk.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgv_rk.Location = new System.Drawing.Point(13, 61);
+            this.dgv_rk.Margin = new System.Windows.Forms.Padding(4);
             this.dgv_rk.Name = "dgv_rk";
             this.dgv_rk.RowHeadersWidth = 51;
             this.dgv_rk.Size = new System.Drawing.Size(1276, 470);
-            this.dgv_rk.TabIndex = 2;
+            this.dgv_rk.TabIndex = 5;
             // 
             // x
             // 
@@ -133,63 +129,16 @@ namespace TP_SIM.Runge_Kutta
             this.yi1.Name = "yi1";
             this.yi1.Width = 125;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(376, 18);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(32, 31);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "A";
-            // 
-            // txt_a
-            // 
-            this.txt_a.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_a.Location = new System.Drawing.Point(419, 15);
-            this.txt_a.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.txt_a.Name = "txt_a";
-            this.txt_a.ReadOnly = true;
-            this.txt_a.Size = new System.Drawing.Size(117, 37);
-            this.txt_a.TabIndex = 5;
-            // 
-            // txt_beta
-            // 
-            this.txt_beta.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_beta.Location = new System.Drawing.Point(628, 15);
-            this.txt_beta.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.txt_beta.Name = "txt_beta";
-            this.txt_beta.ReadOnly = true;
-            this.txt_beta.Size = new System.Drawing.Size(105, 37);
-            this.txt_beta.TabIndex = 7;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(545, 18);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(70, 31);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Beta";
-            // 
-            // rk_llegada_ataque
+            // rk_tiempo_ataque_servidor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1325, 574);
-            this.Controls.Add(this.txt_beta);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.txt_a);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(1307, 549);
             this.Controls.Add(this.txt_iteracion);
             this.Controls.Add(this.dgv_rk);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.Name = "rk_llegada_ataque";
-            this.Text = "rk_llegada_ataque";
-            this.Load += new System.EventHandler(this.rk_llegada_ataque_Load);
+            this.Name = "rk_tiempo_ataque_servidor";
+            this.Text = "rk_tiempo_ataque_servidor";
+            this.Load += new System.EventHandler(this.rk_tiempo_ataque_servidor_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_rk)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -208,9 +157,5 @@ namespace TP_SIM.Runge_Kutta
         private System.Windows.Forms.DataGridViewTextBoxColumn K4;
         private System.Windows.Forms.DataGridViewTextBoxColumn xi1;
         private System.Windows.Forms.DataGridViewTextBoxColumn yi1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txt_a;
-        private System.Windows.Forms.TextBox txt_beta;
-        private System.Windows.Forms.Label label2;
     }
 }
