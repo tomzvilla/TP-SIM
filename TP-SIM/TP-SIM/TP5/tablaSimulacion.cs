@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,7 @@ namespace TP_SIM.TP5
 
         public int columas_a_agregar_AC;
         public List<int> lista_ids;
+        public decimal reloj_anterior;
 
         // atributos para ataques
         public decimal A;
@@ -37,6 +39,7 @@ namespace TP_SIM.TP5
         public bool ataque_llegada = false;
         public bool primer_ataque = false;
         public bool estaba_ocupado = false;
+        public string pathFile;
 
 
 
@@ -64,12 +67,28 @@ namespace TP_SIM.TP5
 
         private void tablaSimulacion_Load(object sender, EventArgs e)
         {
+            borrarArchivos();
             cargarEstados();
             cargarEventos();
             agregarColumnasMecanicos();
             agregarColumnasLavado();
             agregarColumasMetricas();
             simular();
+        }
+
+        private void borrarArchivos()
+        {
+            this.pathFile = AppDomain.CurrentDomain.BaseDirectory + "excel";
+            Directory.CreateDirectory(this.pathFile);
+            DirectoryInfo di = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "excel");
+            FileInfo[] files = di.GetFiles();
+            if(files.Length != 0)
+            {
+                foreach (FileInfo file in files)
+                {
+                    file.Delete();
+                }
+            }
         }
 
         private void agregarColumasMetricas()
@@ -201,6 +220,8 @@ namespace TP_SIM.TP5
             int cant_camiones_mantenidos = 0;
             int cant_camiones_lavados = 0;
 
+            decimal diferencia_horaria = 0;
+
 
             // Contador para ID de camiones
 
@@ -244,6 +265,7 @@ namespace TP_SIM.TP5
 
             for (int i = 0; i < this.iteraciones; i++)
             {
+                reloj_anterior = fila_anterior.reloj;
 
                 //var fila_actual = new VectorEstado();
 
@@ -252,6 +274,7 @@ namespace TP_SIM.TP5
                 var prox_reloj = calcularProximoReloj(fila_anterior.t_fin_mantenimiento, fila_anterior.t_fin_lavado, fila_anterior.t_prox_llegada, fila_anterior.t_prox_ataque, fila_anterior.t_fin_ataque_cliente, fila_anterior.t_fin_ataque_servidor);
                 fila_actual.reloj = prox_reloj[0];
                 fila_actual.evento = eventos_posibles[(int)prox_reloj[1]];
+                diferencia_horaria = fila_actual.reloj - reloj_anterior;
 
                 // Se arrastran los valores anteriores para modificarlos
 
@@ -525,6 +548,7 @@ namespace TP_SIM.TP5
                     cant_camiones_entran += fila_actual.cola_llegada.Count;
                     foreach(Camion camion in fila_actual.cola_llegada)
                     {
+                        fila_actual.camiones.Add(camion);
 
                         // El camion chequea si hay servidores libres, si el id es distinto de 0, hay uno libre
                         int servidorEstaLibre = servidorLibre(fila_anterior.servidor_mantenimiento);
@@ -611,7 +635,8 @@ namespace TP_SIM.TP5
                 {
                     if(fila_anterior.servidor_mantenimiento[k].estado == estados_posibles[5])
                     {
-                        fila_actual.servidor_mantenimiento[k].tiempoOcupado += fila_actual.reloj - fila_anterior.reloj;
+                        var sumar = diferencia_horaria;
+                        fila_actual.servidor_mantenimiento[k].tiempoOcupado += sumar;
                     }
                 }
 
@@ -619,7 +644,8 @@ namespace TP_SIM.TP5
                 {
                     if (fila_anterior.servidor_lavado[k].estado == estados_posibles[5])
                     {
-                        fila_actual.servidor_lavado[k].tiempoOcupado += fila_actual.reloj - fila_anterior.reloj;
+                        var sumar = diferencia_horaria;
+                        fila_actual.servidor_lavado[k].tiempoOcupado += sumar;
                     }
                 }
 
@@ -678,24 +704,24 @@ namespace TP_SIM.TP5
         private decimal calcularAtaque(Random genBeta, decimal A, double reloj)
         {
             var beta = generarRNDUniforme(genBeta);
-            var rk_ataque = new rk_llegada_ataque(beta, (double)A, reloj);
-            rk_ataque.Show();
+            var rk_ataque = new rk_llegada_ataque(beta, (double)A, reloj,this.pathFile);
+            //rk_ataque.Show();
             var proximo_ataque = rk_ataque.valorBuscado;
             return (decimal)proximo_ataque;
 
         }
 
         private decimal calcularTiempoAtaqueLlegada(decimal reloj, decimal t0) {
-            var rk_tiempo_ataque_llegada = new rk_tiempo_ataque_llegada(reloj, t0);
-            rk_tiempo_ataque_llegada.Show();
+            var rk_tiempo_ataque_llegada = new rk_tiempo_ataque_llegada(reloj, t0, this.pathFile);
+            //rk_tiempo_ataque_llegada.Show();
             var tiempo_ataque_llegada = rk_tiempo_ataque_llegada.valorBuscado;
             return (decimal)tiempo_ataque_llegada;
         }
 
         private decimal calcularTiempoAtaqueServidor(decimal reloj, decimal t0)
         {
-            var rk_tiempo_ataque_servidor = new rk_tiempo_ataque_servidor(reloj, t0);
-            rk_tiempo_ataque_servidor.Show();
+            var rk_tiempo_ataque_servidor = new rk_tiempo_ataque_servidor(reloj, t0, this.pathFile);
+            //rk_tiempo_ataque_servidor.Show();
             var tiempo_ataque_servidor = rk_tiempo_ataque_servidor.valorBuscado;
             return (decimal)tiempo_ataque_servidor;
         }

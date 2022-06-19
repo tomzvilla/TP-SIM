@@ -7,25 +7,47 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SpreadsheetLight;
 
 namespace TP_SIM.Runge_Kutta
 {
     public partial class rk_tiempo_ataque_llegada : Form
     {
+        
+        SLDocument oSLDocument = new SLDocument();
+        DataTable dt = new DataTable();
+        public string pathFile;
+        public string archivo;
         public double reloj;
         public double x0;
         public double y0;
         public double h;
         public double valorBuscado;
         public bool flag;
-        public rk_tiempo_ataque_llegada(decimal reloj , decimal t0)
+        public rk_tiempo_ataque_llegada(decimal reloj , decimal t0, string _pathFile)
         {
             InitializeComponent();
+            añadirColumnas();
+            pathFile = _pathFile;
             this.y0 = (double)reloj;
             this.x0 = (double)t0;
             this.reloj = (double)reloj;
+            archivo = pathFile + $"/excelDuracionAtaqueLlegada-" + reloj.ToString("0.00") + ".xlsx";
             this.h = 0.1;
             calcularRK();
+        }
+
+        private void añadirColumnas()
+        {
+            dt.Columns.Add("Valor X", typeof(string));
+            dt.Columns.Add("Valor Y", typeof(decimal));
+            dt.Columns.Add("dY/dX (K1)", typeof(decimal));
+            dt.Columns.Add("K2", typeof(decimal));
+            dt.Columns.Add("K3", typeof(decimal));
+            dt.Columns.Add("K4", typeof(decimal));
+            dt.Columns.Add("Xi+1", typeof(decimal));
+            dt.Columns.Add("Yi+1", typeof(decimal));
+            dt.Columns.Add("Diferencia", typeof(decimal));
         }
 
         private void calcularRK()
@@ -37,7 +59,8 @@ namespace TP_SIM.Runge_Kutta
             fila_anterior.xi1 = this.x0;
             fila_anterior.yi1 = this.y0;
 
-            imprimirFila(fila_anterior);
+            //imprimirFila(fila_anterior);
+            dt.Rows.Add(fila_anterior.x.ToString(), fila_anterior.y, fila_anterior.dy_dx, fila_anterior.K2, fila_anterior.K3, fila_anterior.K4, fila_anterior.xi1, fila_anterior.yi1);
 
             var fila_actual = new fila_rk();
             do
@@ -62,14 +85,23 @@ namespace TP_SIM.Runge_Kutta
                 fila_actual.xi1 = fila_actual.x + this.h;
                 fila_actual.yi1 = fila_actual.y + ((double)(this.h / 6) * (fila_actual.dy_dx + 2 * fila_actual.K2 + 2 * fila_actual.K3 + fila_actual.K4));
 
-                imprimirFila(fila_actual);
-
                 diferencia = Math.Abs(fila_actual.yi1 - fila_actual.y);
+                dt.Rows.Add(fila_actual.x.ToString(), fila_actual.y, fila_actual.dy_dx, fila_actual.K2, fila_actual.K3, fila_actual.K4, fila_actual.xi1, fila_actual.yi1, diferencia);
+
+
+                //imprimirFila(fila_actual);
+
+                
 
                 fila_anterior = fila_actual;
             } while (diferencia >= 1);
             var t = fila_anterior.x;
             this.valorBuscado = t * 5;
+            dt.Rows.Add();
+            dt.Rows.Add();
+            dt.Rows.Add("Valor Buscado", this.valorBuscado);
+            oSLDocument.ImportDataTable(1, 1, dt, true);
+            oSLDocument.SaveAs(archivo);
         }
 
         private void imprimirFila(fila_rk fila_imprimir)

@@ -70,3 +70,11 @@ C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM
 C:\Users\Usuario\Desktop\Maxi\Facultad\Cuarto Año\Simulación\TP5\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Runge_Kutta.rk_tiempo_ataque_servidor.resources
 C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Runge_Kutta.rk_tiempo_ataque_llegada.resources
 C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP_SIM.Runge_Kutta.rk_tiempo_ataque_servidor.resources
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\bin\Debug\DocumentFormat.OpenXml.dll
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\bin\Debug\SpreadsheetLight.dll
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\bin\Debug\System.Drawing.Common.dll
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\bin\Debug\System.IO.Packaging.dll
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\bin\Debug\DocumentFormat.OpenXml.xml
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\bin\Debug\SpreadsheetLight.xml
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\bin\Debug\System.IO.Packaging.xml
+C:\Users\villa\source\repos\TP1-SIM\TP-SIM\TP-SIM\TP-SIM\obj\Debug\TP-SIM.csproj.CopyComplete
